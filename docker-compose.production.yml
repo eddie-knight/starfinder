@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: sacred_tenet/starfinder_prod:0.0.1
+    image: eknight/sacred-tenet:latest
     env_file: .env
     environment:
       - FLASK_APP=starfinder/starfinder_app.py
