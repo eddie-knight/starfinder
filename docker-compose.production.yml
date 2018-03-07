@@ -19,7 +19,7 @@ services:
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
   db_util:
-    image: lifeloopweb_db_util
+    image: starfinder_db_util
     env_file: .env
     build:
       context: .
