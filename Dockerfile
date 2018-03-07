@@ -11,4 +11,4 @@ RUN export DOCKERIZE_VERSION=v0.6.0 \
         && tar -C /usr/local/bin -xzvf dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
             && rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
-RUN pip install -r requirements.txt && pip install -e .
+RUN pip install -r requirements.txt

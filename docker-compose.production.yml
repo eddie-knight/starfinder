@@ -1,0 +1,28 @@
+version: '3'
+services:
+  web:
+    image: toneo/lifeloopweb_prod:3.0.0
+    env_file: .env
+    environment:
+      - FLASK_APP=lifeloopweb/lifeloopweb_app.py
+    ports:
+      - "5000:5000"
+    depends_on:
+      - database
+    command: /code/web_entrypoint.sh
+  database:
+    image: percona
+    volumes:
+      - ./database_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+  db_util:
+    image: lifeloopweb_db_util
+    env_file: .env
+    build:
+      context: .
+      dockerfile: Dockerfile.db_util
+    depends_on:
+      - database
