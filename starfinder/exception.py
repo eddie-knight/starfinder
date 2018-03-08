@@ -6,6 +6,6 @@ class StarfinderException(Exception):
     def message(self):
         raise NotImplementedError('Message not set!')
 
-class ConfigKeyNotFound(LifeloopException):
+class ConfigKeyNotFound(StarfinderException):
     message = ("The requested key '%(key)s' does not exist in the "
                "application configuration")
