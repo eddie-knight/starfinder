@@ -19,5 +19,9 @@ app = create_app()
 def run_server():
     app.run()
 
+@app.route('/', methods=['GET'])
+def index():
+    return flask.render_template('index.html')
+
 if __name__ == "__main__":
     run_server()
