@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: sacred-tenet
+    image: starfinder
     build: .
     env_file: .env
     environment:
@@ -11,7 +11,7 @@ services:
       - "5000:5000"
     privileged: true
     volumes:
-      - ./sacred-tenet:/code/starfinder
+      - ./starfinder:/code/starfinder
     depends_on:
       - database
     command: /code/web_entrypoint.sh
