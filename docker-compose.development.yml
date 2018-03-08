@@ -9,7 +9,6 @@ services:
       - FLASK_DEBUG=1
     ports:
       - "5000:5000"
-    privileged: true
     volumes:
       - ./starfinder:/code/starfinder
     depends_on:
