@@ -16,7 +16,7 @@
 	Prepared by JM; needs a more comprehensive documentation
 	http://setuptools.readthedocs.io/en/latest/formats.html#eggs-and-their-formats
   
-  .env
+  .env-example
 
 	Currently empty
 	Will hold any sensitive variables (such as API keys) to avoid displaying them in our version control
