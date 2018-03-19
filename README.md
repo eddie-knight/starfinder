@@ -1,4 +1,4 @@
-# Sacred Tenet
+# Starfinder
 
 ## Explanation of this directory's contents:
   
