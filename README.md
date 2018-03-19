@@ -1,19 +1,52 @@
-# starfinder
+# Sacred Tenet
 
-Currently erroring on `make run` with the following message:
+## Explanation of this directory's contents:
+  
+  docker/
 
-	(llw) bash-3.2$ make run
-	if [ ! -d "./database_data" ]; then mkdir -p ./database_data; fi
-	environment:
-	Removing starfinder_web_1
-	starfinder_database_1 is up-to-date
-	Starting starfinder_db_util_1 ...
-	Starting starfinder_db_util_1
-	Recreating 3838074e921a_starfinder_web_1 ...
-	Recreating 3838074e921a_starfinder_web_1 ... error
+	Currently contains the web entrypoint script
+	Later we'll add database utilities here as needed
+  
+  starfinder/
 
-	ERROR: for 3838074e921a_starfinder_web_1  Cannot start service web: OCI runtime create failed: container_linux.go:296: starting container process caused "exec: \"/code/web_entrypoint.sh\": permission denied": unknown
+	Houses all container code, including the application MVC
+  
+  starfinder.egg-info/
 
-	ERROR: for web  Cannot start service web: OCI runtime create failed: container_linux.go:296: starting container process caused "exec: \"/code/web_entrypoint.sh\": permission denied": unknown
-	ERROR: Encountered errors while bringing up the project.
-	make: *** [run] Error 1
+	Prepared by JM; needs a more comprehensive documentation
+	http://setuptools.readthedocs.io/en/latest/formats.html#eggs-and-their-formats
+  
+  .env
+
+	Currently empty
+	Will hold any sensitive variables (such as API keys) to avoid displaying them in our version control
+  
+  .git_ignore
+
+	Prevents select elements from being pushed to version control (such as the .env)
+  
+  docker-compose.*
+
+	These files determine how the containers will be created.
+	Currently we only use docker-compose.development, but later we will need to handle production, staging, and development environments differently.
+  
+  Dockerfile
+
+	Loads up the new containers
+	Sets /code as the work directory
+	Installs all requirements
+  
+  Docerfile.db_util
+
+	Currently doesn't do much
+	Later will be used for database backups
+  
+  Makefile
+
+	Contains commands that can be used to modify the container via the virtual python environment
+	Currently has commands to run & stop the containers
+  
+  requirements.txt
+
+	Contains a list of requirements that are installed by the Dockerfile
+	Currently this is just a spitballing of potential requirements
