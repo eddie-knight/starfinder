@@ -3,6 +3,14 @@ import contextlib
 import sqlalchemy as sa
 from sqlalchemy import orm
 
+from starfinder import config, logging
+
+CONF = config.CONF
+LOG = logging.get_logger(__name__)
+DB_NAME = "starfinder_{}".format(CONF.get("ENVIRONMENT"))
+ENGINE_URL = CONF.get("DB_ENGINE_URL")
+
+connection_debug = CONF.get("database.connection.debug")
 connection_debug = connection_debug.lower() == "true"
 connection_pool_size = int(CONF.get("database.connection.poolsize"))
 connection_overflow_pool = int(CONF.get("database.connection.overflowpool"))
@@ -27,6 +35,19 @@ SessionFactory = orm.sessionmaker(bind=engine, expire_on_commit=False,
 
 ScopedSession = orm.scoped_session(SessionFactory)
 Session = ScopedSession
+
+
+def can_connect():
+    try:
+        engine.connect()
+        return True
+    except Exception:
+        return False
+
+
+def teardown():
+    ScopedSession.remove()
+
 
 @contextlib.contextmanager
 def transaction():
