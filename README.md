@@ -31,7 +31,7 @@
 	Sets /code as the work directory
 	Installs all requirements
   
-  Docerfile.db_util
+  Dockerfile.db_util
 
 	Currently doesn't do much
 	Later will be used for database backups
