@@ -10,12 +10,7 @@
   starfinder/
 
 	Houses all container code, including the application MVC
-  
-  starfinder.egg-info/
 
-	Prepared by JM; needs a more comprehensive documentation
-	http://setuptools.readthedocs.io/en/latest/formats.html#eggs-and-their-formats
-  
   .env-example
 
 	Currently empty
