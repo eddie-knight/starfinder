@@ -12,6 +12,7 @@ run :  ## docker compose everything
 	@echo "environment: ${ENVIRONMENT}"
 	@$(SUDO) chown -R $$USER:$(PRIMARY_GROUP) ./database_data; \
 	$(DOCKER_COMPOSE) docker-compose.${ENVIRONMENT}.yml up -d
+	$(DB_URL) starfinder_db_manage create_database
 
 .PHONY : stop
 stop : ## teardown compose containers
