@@ -1,6 +1,0 @@
-[console_scripts]
-starfinder_db_manage = starfinder.db.migrations.cli:main
-starfinder_flask_server = starfinder.starfinder_app:run_server
-starfinder_gunicorn_server = starfinder.wsgi:run_server
-starfinder_shell = starfinder.shell:main
-
