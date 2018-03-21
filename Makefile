@@ -12,7 +12,6 @@ run :  ## docker compose everything
 	@echo "environment: ${ENVIRONMENT}"
 	@$(SUDO) chown -R $$USER:$(PRIMARY_GROUP) ./database_data; \
 	$(DOCKER_COMPOSE) docker-compose.${ENVIRONMENT}.yml up -d
-	$(DB_URL) $(BASENAME)_db_manage create_database
 
 .PHONY : stop
 stop : ## teardown compose containers
@@ -26,12 +25,11 @@ running_web :
 		echo "No running web found. Please start it with 'make run'"; \
 	fi
 
-.PHONY : running_database
-running_database :
-	@if [ "$(shell ${COMPOSE_CHECK} database | egrep -q "database.*Up" && echo 1 || echo 0)" -eq 0 ]; \
-	then \
-		echo "No running database found. Please start it with 'make run'"; \
-	fi
+.PHONY : database
+database : ## create and restore database from production mysqldump
+	$(DOCKER_COMPOSE) docker-compose.${ENVIRONMENT}.yml exec web $(DOCKERIZE_WAIT) $(DB_URL) $(BASENAME)_db_manage drop_database
+	$(DOCKER_COMPOSE) docker-compose.${ENVIRONMENT}.yml rm -f
+	$(DB_URL) $(BASENAME)_db_manage create_database
 
 .PHONY : reset_web
 reset_web : running_web ## teardown and recreate web container
@@ -45,7 +43,7 @@ logs : ## show logs from the last 10 minutes
 	$(DOCKER) logs -f $(BASENAME)_web_1 --since 10m
 
 .PHONY : db_cli
-db_cli : running_database ## go to database CLI
+db_cli : ## go to database CLI
 	@$(DOCKER_COMPOSE) docker-compose.${ENVIRONMENT}.yml exec database mysql -uroot --database $(BASENAME)_${ENVIRONMENT}
 
 .PHONY : db_localhost
