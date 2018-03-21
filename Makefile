@@ -26,9 +26,7 @@ running_web :
 	fi
 
 .PHONY : database
-database : ## create and restore database from production mysqldump
-	$(DOCKER_COMPOSE) docker-compose.${ENVIRONMENT}.yml exec web $(DOCKERIZE_WAIT) $(DB_URL) $(BASENAME)_db_manage drop_database
-	$(DOCKER_COMPOSE) docker-compose.${ENVIRONMENT}.yml rm -f
+database : ## create database
 	$(DB_URL) $(BASENAME)_db_manage create_database
 
 .PHONY : reset_web
