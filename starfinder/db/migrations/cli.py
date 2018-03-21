@@ -5,6 +5,7 @@ import sys
 
 from alembic import command as alembic_command
 from alembic import config as alembic_config
+from alembic import script as alembic_script
 from alembic import util as alembic_util
 import click
 import sqlalchemy_utils
