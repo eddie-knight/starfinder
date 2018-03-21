@@ -69,7 +69,7 @@ def revision(ctx, message):
     test_connection()
     config = ctx.obj["alembic_config"]
     _dispatch_alembic_cmd(config, "revision", message=message)
-    # _update_head_file(config)
+    _update_head_file(config)
 
 
 def main():
