@@ -34,6 +34,20 @@ def create_database():
         sqlalchemy_utils.create_database(ENGINE_URL)
 
 
+def abort_if_false(ctx, _param, value):
+    if not value:
+        ctx.abort()
+
+
+@migrate_cli.command(help="Drops the database if it exists")
+@click.option('--confirm', is_flag=True, callback=abort_if_false,
+              expose_value=False,
+              prompt='Are you sure you want to drop the database?')
+def drop_database():
+    if sqlalchemy_utils.database_exists(models.engine.url):
+        sqlalchemy_utils.drop_database(models.engine.url)
+
+
 def test_connection():
     if not models.can_connect():
         print("Couldn't connect to the database. Your engine URL is:")
@@ -52,7 +66,6 @@ def _dispatch_alembic_cmd(config, cmd, *args, **kwargs):
 def _get_head_path(script):
     if len(script.get_heads()) > 1:
         alembic_util.err('Timeline branches unable to generate timeline')
-
     head_path = os.path.join(script.versions, HEAD_FILENAME)
     return head_path
 
@@ -71,6 +84,21 @@ def revision(ctx, message):
     config = ctx.obj["alembic_config"]
     _dispatch_alembic_cmd(config, "revision", message=message)
     _update_head_file(config)
+
+
+@migrate_cli.command(help="Upgrades the database to the specified version. "
+                          "Pass 'head' as the revision to upgrade to the latest "
+                          "version")
+@click.pass_context
+@click.argument("migration_revision")
+def upgrade(ctx, migration_revision):
+    test_connection()
+    config = ctx.obj["alembic_config"]
+    if not sqlalchemy_utils.database_exists(ENGINE_URL):
+        alembic_util.err("Cannot continue. The database must be created with "
+                         "'create_database' first")
+    migration_revision = migration_revision.lower()
+    _dispatch_alembic_cmd(config, "upgrade", revision=migration_revision)
 
 
 def main():
