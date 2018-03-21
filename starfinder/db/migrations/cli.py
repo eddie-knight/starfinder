@@ -5,6 +5,7 @@ import sys
 
 from alembic import command as alembic_command
 from alembic import config as alembic_config
+from alembic import script as alembic_script
 from alembic import util as alembic_util
 import click
 import sqlalchemy_utils
@@ -69,7 +70,7 @@ def revision(ctx, message):
     test_connection()
     config = ctx.obj["alembic_config"]
     _dispatch_alembic_cmd(config, "revision", message=message)
-    # _update_head_file(config)
+    _update_head_file(config)
 
 
 def main():
