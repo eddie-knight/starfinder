@@ -34,6 +34,20 @@ def create_database():
         sqlalchemy_utils.create_database(ENGINE_URL)
 
 
+def abort_if_false(ctx, _param, value):
+    if not value:
+        ctx.abort()
+
+
+@migrate_cli.command(help="Drops the database if it exists")
+@click.option('--confirm', is_flag=True, callback=abort_if_false,
+              expose_value=False,
+              prompt='Are you sure you want to drop the database?')
+def drop_database():
+    if sqlalchemy_utils.database_exists(models.engine.url):
+        sqlalchemy_utils.drop_database(models.engine.url)
+
+
 def test_connection():
     if not models.can_connect():
         print("Couldn't connect to the database. Your engine URL is:")
