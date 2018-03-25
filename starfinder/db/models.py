@@ -3,6 +3,7 @@ import contextlib
 import sqlalchemy as sa
 from sqlalchemy import orm, func
 from sqlalchemy.ext import declarative
+import sqlalchemy_utils
 
 from starfinder import config, logging
 
@@ -149,3 +150,22 @@ class ModelBase(object):
 
 Base = declarative.declarative_base(cls=ModelBase, bind=engine,
                                     metaclass=MetaBase)
+
+class GUID(sqlalchemy_utils.UUIDType):
+
+    def __init__(self, length=16, binary=True, native=True):
+        super(GUID, self).__init__(binary, native)
+
+
+class HasId(object):
+    """id mixin, add to subclasses that have an id."""
+
+    id = sa.Column(GUID,
+                   primary_key=True,
+                   default=db_utils.generate_guid)
+
+
+class User(Base, HasId):
+    name = sa.Column(sa.String(200), nullable=False)
+
+
