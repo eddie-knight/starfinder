@@ -1,4 +1,4 @@
-"""Create Users Table
+"""Initial Migration
 
 Revision ID: a318fae4abe3
 Revises: 
