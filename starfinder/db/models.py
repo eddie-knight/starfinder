@@ -1,11 +1,12 @@
 import contextlib
 
+import functools
 import sqlalchemy as sa
 from sqlalchemy import orm, func
 from sqlalchemy.ext import declarative
 import sqlalchemy_utils
-
 from starfinder import config, logging
+from starfinder.db import utils as db_utils
 
 CONF = config.CONF
 LOG = logging.get_logger(__name__)
@@ -166,6 +167,9 @@ class HasId(object):
 
 
 class User(Base, HasId):
-    name = sa.Column(sa.String(200), nullable=False)
+    username = sa.Column(sa.String(16), nullable=False)
+
+    def __str__(self):
+        return self.username
 
 
