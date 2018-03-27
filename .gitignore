@@ -1,3 +1,5 @@
 database_data
 __pycache__/
 starfinder.egg-info
+.env
+.env-e
