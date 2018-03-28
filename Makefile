@@ -25,15 +25,26 @@ running_web :
 		echo "No running web found. Please start it with 'make run'"; \
 	fi
 
+.PHONY : drop_db
+drop_db : ## create database
+	$(DB_URL) $(BASENAME)_db_manage drop_database
+
 .PHONY : database
 database : ## create database
+	make db_localhost
+	$(DB_URL) $(BASENAME)_db_manage create_database
+	make db_unset_localhost
+
+.PHONY : reset_db
+drop_db : ## create database
+	$(DB_URL) $(BASENAME)_db_manage drop_database
 	$(DB_URL) $(BASENAME)_db_manage create_database
 
 .PHONY : reset_web
 reset_web : running_web ## teardown and recreate web container
 	@$(DOCKER) stop $(BASENAME)_web_1; \
 	$(DOCKER) rm $(BASENAME)_web_1; \
-	$(DOCKER_COMPOSE) docker-compose.${ENVIRONMENT}.yml up -d
+	$(DOCKER_COMPOSE) docker-compose.${ENVIRONMENT}.yml up -database
 
 .PHONY : logs
 logs : ## show logs from the last 10 minutes
