@@ -32,8 +32,8 @@ drop_db : ## create database
 .PHONY : database
 database : ## create database
 	make db_localhost
-    $(DB_URL) $(BASENAME)_db_manage create_database
-    make db_unset_localhost
+	$(DB_URL) $(BASENAME)_db_manage create_database
+	make db_unset_localhost
 
 .PHONY : reset_db
 drop_db : ## create database
@@ -44,7 +44,7 @@ drop_db : ## create database
 reset_web : running_web ## teardown and recreate web container
 	@$(DOCKER) stop $(BASENAME)_web_1; \
 	$(DOCKER) rm $(BASENAME)_web_1; \
-	$(DOCKER_COMPOSE) docker-compose.${ENVIRONMENT}.yml up -d
+	$(DOCKER_COMPOSE) docker-compose.${ENVIRONMENT}.yml up -database
 
 .PHONY : logs
 logs : ## show logs from the last 10 minutes
