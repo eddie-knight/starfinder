@@ -125,4 +125,236 @@ class User(db_engine.Model, ModelBase, HasId):
     def __repr__(self):
         return self.username
 
+
+
+-----------------
+Character Classes
+-----------------
+
+class Character(Base, HasId):
+    name = sa.Column(sa.String(), nullable=False)
+
+    def __str__(self):
+        return self.name
+
+class CharacterDetail(Base, HasId):
+    character_id = sa.Column(sa.ForeignKey("characters.id"),
+                                     nullable=False)
+    alignment_id = sa.Column(sa.ForeignKey("alignments.id"),
+                                     nullable=False)
+    class_id = sa.Column(sa.ForeignKey("classes.id"),
+                                     nullable=False)
+    deity_id = sa.Column(sa.ForeignKey("deities.id"),
+                                     nullable=False)
+    home_world_id = sa.Column(sa.ForeignKey("worlds.id"),
+                                     nullable=False)
+    race_id = sa.Column(sa.ForeignKey("races.id"),
+                                     nullable=False)
+    size_id = sa.Column(sa.ForeignKey("sizes.id"),
+                                     nullable=False)
+    theme_id = sa.Column(sa.ForeignKey("themes.id"),
+                                     nullable=False)
+    level = sa.Column(sa.Integer(), nullable=False)
+    gender = sa.Column(sa.String(6), nullable=False)
+    description = sa.Column(sa.String(160), nullable=False)
+
+class CharacterEquipment(Base, HasId):
+    character_id = sa.Column(sa.ForeignKey("characters.id"),
+                                     nullable=False)
+    attributes = sa.Column(sa.JSON("equipment.attributes"),
+                                     nullable=False)
+
+class CharacterFeat(Base, HasId):
+    character_id = sa.Column(sa.ForeignKey("characters.id"),
+                                     nullable=False)
+    feat_id = sa.Column(sa.ForeignKey("feats.id"),
+                                     nullable=False)
+
+class CharacterSkill(Base, HasId):
+    character_id = sa.Column(sa.ForeignKey("characters.id"),
+                                     nullable=False)
+    acrobatics = sa.Column(sa.Integer(), nullable=False, default=False)
+    athletics = sa.Column(sa.Integer(), nullable=False, default=False)
+    bluff = sa.Column(sa.Integer(), nullable=False, default=False)
+    computers = sa.Column(sa.Integer(), nullable=False, default=False)
+    culture = sa.Column(sa.Integer(), nullable=False, default=False)
+    diplomacy = sa.Column(sa.Integer(), nullable=False, default=False)
+    disguise = sa.Column(sa.Integer(), nullable=False, default=False)
+    engineering = sa.Column(sa.Integer(), nullable=False, default=False)
+    intimidate = sa.Column(sa.Integer(), nullable=False, default=False)
+    life_science = sa.Column(sa.Integer(), nullable=False, default=False)
+    medicine = sa.Column(sa.Integer(), nullable=False, default=False)
+    mysticsm = sa.Column(sa.Integer(), nullable=False, default=False)
+    perception = sa.Column(sa.Integer(), nullable=False, default=False)
+    physical_science = sa.Column(sa.Integer(), nullable=False, default=False)
+    piloting = sa.Column(sa.Integer(), nullable=False, default=False)
+    profession = sa.Column(sa.Integer(), nullable=False, default=False)
+    sense_motive = sa.Column(sa.Integer(), nullable=False, default=False)
+    sleight_of_hand = sa.Column(sa.Integer(), nullable=False, default=False)
+    stealth = sa.Column(sa.Integer(), nullable=False, default=False)
+    survival = sa.Column(sa.Integer(), nullable=False, default=False)
+
+# -----------------
+# Equipment Classes
+# -----------------
+
+class Equipment(Base, HasId):
+    attributes = sa.Column(sa.JSON("equipment.attributes"),
+                                     nullable=False)
+
+class Ammunition(Base, HasId):
+    attributes = sa.Column(sa.JSON("ammunition.attributes"),
+                                     nullable=False)
+
+class Armor(Base, HasId):
+    attributes = sa.Column(sa.JSON("armor.attributes"),
+                                     nullable=False)
+
+class ArmorUpgrade(Base, HasId):
+    attributes = sa.Column(sa.JSON("armor_upgrades.attributes"),
+                                     nullable=False)
+
+class Augmentation(Base, HasId):
+    attributes = sa.Column(sa.JSON("augmentations.attributes"),
+                                     nullable=False)
+
+class Computer(Base, HasId):
+    attributes = sa.Column(sa.JSON("computers.attributes"),
+                                     nullable=False)
+
+class ComputerUpgrade(Base, HasId):
+    attributes = sa.Column(sa.JSON("computer_upgrades.attributes"),
+                                     nullable=False)
+
+class Fusion(Base, HasId):
+    attributes = sa.Column(sa.JSON("fusions.attributes"),
+                                     nullable=False)
+
+class Grenade(Base, HasId):
+    attributes = sa.Column(sa.JSON("grenades.attributes"),
+                                     nullable=False)
+
+class MeleeWeapon(Base, HasId):
+    attributes = sa.Column(sa.JSON("melee_weapons.attributes"),
+                                     nullable=False)
+
+class RangedWeapon(Base, HasId):
+    attributes = sa.Column(sa.JSON("ranged_weapons.attributes"),
+                                     nullable=False)
+
+
+# ------------
+# Info Classes
+# ------------
+
+class Alignment(Base, HasId):
+    name = sa.Column(sa.String(), nullable=False)
+    description = sa.Column(sa.String(), nullable=False)
+
+class Size(Base, HasId):
+    name = sa.Column(sa.String(), nullable=False)
+    description = sa.Column(sa.String(), nullable=False)
+
+class Deitie(Base, HasId):
+    name = sa.Column(sa.String(), nullable=False)
+    alignment_id = sa.Column(sa.ForeignKey("alignments.id"),
+                                     nullable=False)
+    description = sa.Column(sa.String(), nullable=False)
+
+class World(Base, HasId):
+    name = sa.Column(sa.String(), nullable=False)
+    description = sa.Column(sa.String(), nullable=False)
+
+class PlacesOfWorship(Base, HasId):
+    world_id = sa.Column(sa.ForeignKey("worlds.id"),
+                                     nullable=False)
+    deity_id = sa.Column(sa.ForeignKey("deities.id"),
+                                     nullable=False)
+
+class NativeRace(Base, HasId):
+    world_id = sa.Column(sa.ForeignKey("worlds.id"),
+                                     nullable=False)
+    race_id = sa.Column(sa.ForeignKey("race.id"),
+                                     nullable=False)
+
+
+# ------------
+# Race Classes
+# ------------
+
+class Race(Base, HasId):
+    home_world_id = sa.Column(sa.ForeignKey("worlds.id"),
+                                     nullable=False)
+    size_id = sa.Column(sa.ForeignKey("sizes.id"),
+                                     nullable=False)
+    name = sa.Column(sa.String(), nullable=False)
+    avg_height = sa.Column(sa.String(), nullable=False)
+    avg_weight = sa.Column(sa.String(), nullable=False)
+    age_of_maturity = sa.Column(sa.Integer(), nullable=False)
+    max_age = sa.Column(sa.String(), nullable=False)
+    description = sa.Column(sa.String(), nullable=False)
+    hit_points = sa.Column(sa.Integer(), nullable=False)
+    type = sa.Column(sa.String(), nullable=False)
+    physical_description = sa.Column(sa.String(), nullable=False)
+    society_and_alignment = sa.Column(sa.String(), nullable=False)
+    relations = sa.Column(sa.String(), nullable=False)
+    adventurers = sa.Column(sa.String(), nullable=False)
+    names = sa.Column(sa.String(), nullable=False)
+
+class RacialTraits(Base, HasId):
+    race_id = sa.Column(sa.ForeignKey("races.id"),
+                                     nullable=False)
+    name = sa.Column(sa.String(), nullable=False)
+    description = sa.Column(sa.String(), nullable=False)
+
+class AssociatedFeats(Base, HasId):
+    trait_id = sa.Column(sa.ForeignKey("traits.id"),
+                                     nullable=False)
+    feat_id = sa.Column(sa.ForeignKey("feats.id"),
+                                     nullable=False)
+
+
+# --------------------
+# Feat & Spell Classes
+# --------------------
+
+class Feats(Base, HasId):
+    modifier_id = sa.Column(sa.ForeignKey("races.id"),
+                                     nullable=False)
+    prereq_id = sa.Column(sa.ForeignKey("races.id"),
+                                     nullable=False)
+    name = sa.Column(sa.String(), nullable=False)
+    description = sa.Column(sa.String(), nullable=False)
+
+class Spells(Base, HasId):
+    name = sa.Column(sa.String(), nullable=False)
+    description = sa.Column(sa.String(), nullable=False)
+
+
+# ----------------
+# Modifier Classes
+# ----------------
+
+class Modifiers(Base, HasId):
+    effected_stat = sa.Column(sa.String(), nullable=False)
+    modification = sa.Column(sa.Integer(), nullable=False)
+
+class TraitModifiers(Base, HasId):
+    trait_id = sa.Column(sa.ForeignKey("traits.id"),
+                                     nullable=False)
+    modifier_id = sa.Column(sa.ForeignKey("modifiers.id"),
+                                     nullable=False)
+
+class FeatModifiers(Base, HasId):
+    trait_id = sa.Column(sa.ForeignKey("traits.id"),
+                                     nullable=False)
+    modifier_id = sa.Column(sa.ForeignKey("modifiers.id"),
+                                     nullable=False)
+
+class ThemeModifiers(Base, HasId):
+    trait_id = sa.Column(sa.ForeignKey("traits.id"),
+                                     nullable=False)
+    modifier_id = sa.Column(sa.ForeignKey("modifiers.id"),
+                                     nullable=False)
+
 db_engine.create_all()
