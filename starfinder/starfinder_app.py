@@ -2,9 +2,12 @@ import flask
 
 from starfinder import config, logging
 from starfinder.app import users, classes, feats
+from starfinder.db import models
 
 CONF = config.CONF
 LOG = logging.get_logger(__name__)
+
+LOG.debug("START ENGINE URL: %s", CONF.get("db.engine.url"))
 
 def create_app():
     LOG.debug("Initiating Application")
@@ -26,6 +29,7 @@ def run_server():
 
 @app.route('/', methods=['GET'])
 def index():
+    models.Character.get(1)
     return flask.render_template('index.html')
 
 if __name__ == "__main__":
