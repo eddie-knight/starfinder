@@ -19,44 +19,181 @@ down_revision = None
 branch_labels = None
 depends_on = None
 
-users = table(
-    'users',
-    column('id', Binary),
-    column('username', String),
-    column('hashed_password', String))
+# users = table(
+#     'users',
+#     column('id', Binary),
+#     column('username', String),
+#     column('hashed_password', String))
 
-alignments = table(
-    'alignments',
-    column('description', String))
+# alignments = table(
+#     'alignments',
+#     column('description', String))
 
-deities = table(
-    'deities',
-    column('name', String),
-    column('represents', String),
-    column('alignment_id', String))
+# deities = table(
+#     'deities',
+#     column('name', String),
+#     column('represents', String),
+#     column('alignment_id', String))
 
-creature_sizes = table(
-    'creature_sizes',
-    column('size_category', String),
-    column('height_or_length', String),
-    column('weight', String),
-    column('space', String),
-    column('natural_reach_tall', String),
-    column('natural_reach_long', String))
+# creature_sizes = table(
+#     'creature_sizes',
+#     column('size_category', String),
+#     column('height_or_length', String),
+#     column('weight', String),
+#     column('space', String),
+#     column('natural_reach_tall', String),
+#     column('natural_reach_long', String))
 
-def upgrade():
-    op.create_table('users',
-    sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.Column('id', models.GUID(length=16), nullable=False),
-    sa.Column('username', sa.String(length=16), nullable=False),
-    sa.Column('hashed_password', sa.String(length=128), nullable=False),
-    sa.PrimaryKeyConstraint('id'),
-    mysql_charset='utf8',
-    mysql_collate='utf8_general_ci',
-    mysql_engine='InnoDB'
-    )
-    op.create_table('characters',
+# def upgrade():
+#     op.create_table('users',
+#     sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+#     sa.Column('updated_at', sa.DateTime(), nullable=True),
+#     sa.Column('id', models.GUID(length=16), nullable=False),
+#     sa.Column('username', sa.String(length=16), nullable=False),
+#     sa.Column('hashed_password', sa.String(length=128), nullable=False),
+#     sa.PrimaryKeyConstraint('id'),
+#     mysql_charset='utf8',
+#     mysql_collate='utf8_general_ci',
+#     mysql_engine='InnoDB'
+#     )
+#     op.create_table('characters',
+#     sa.Column('id', models.GUID(length=16), nullable=False),
+#     sa.Column('name', sa.String(length=16), nullable=False),
+#     sa.PrimaryKeyConstraint('id'),
+#     mysql_charset='utf8',
+#     mysql_collate='utf8_general_ci',
+#     mysql_engine='InnoDB'
+#     )
+#     op.create_table('character_skills',
+#     sa.Column('id', models.GUID(length=16), nullable=False),
+#     sa.Column('all_skills', sa.String(length=16), nullable=False),
+#     sa.PrimaryKeyConstraint('id'),
+#     mysql_charset='utf8',
+#     mysql_collate='utf8_general_ci',
+#     mysql_engine='InnoDB'
+#     )
+#     op.create_table('classes',
+#     sa.Column('id', sa.Integer(), primary_key=True, ),
+#     sa.Column('character_id', models.GUID(length=16), nullable=False),
+#     sa.ForeignKeyConstraint(['character_id'], ['characters.id'], ),    
+#     sa.PrimaryKeyConstraint('id'),
+#     mysql_charset='utf8',
+#     mysql_collate='utf8_general_ci',
+#     mysql_engine='InnoDB'
+#     )
+#     op.create_table('races',
+#     sa.Column('id', sa.Integer(), primary_key=True, ),
+#     sa.Column('character_id', models.GUID(length=16), nullable=False),
+#     sa.ForeignKeyConstraint(['character_id'], ['characters.id'], ),    
+#     sa.PrimaryKeyConstraint('id'),
+#     mysql_charset='utf8',
+#     mysql_collate='utf8_general_ci',
+#     mysql_engine='InnoDB'
+#     )
+#     op.create_table('themes',
+#     sa.Column('id', sa.Integer(), primary_key=True, ),
+#     sa.Column('character_id', models.GUID(length=16), nullable=False),
+#     sa.ForeignKeyConstraint(['character_id'], ['characters.id'], ),    
+#     sa.PrimaryKeyConstraint('id'),
+#     mysql_charset='utf8',
+#     mysql_collate='utf8_general_ci',
+#     mysql_engine='InnoDB'
+#     )
+#     op.create_table('home_worlds',
+#     sa.Column('id', sa.Integer(), primary_key=True, ),
+#     sa.Column('home_world', sa.String(length=16), nullable=False),
+#     sa.PrimaryKeyConstraint('id'),
+#     mysql_charset='utf8',
+#     mysql_collate='utf8_general_ci',
+#     mysql_engine='InnoDB'
+#     )
+#     op.create_table('creature_sizes',
+#     sa.Column('id', sa.Integer(), primary_key=True, ),
+#     sa.Column('size_category', sa.String(length=16), nullable=False),
+#     sa.Column('height_or_length', sa.String(length=16), nullable=False),
+#     sa.Column('weight', sa.String(length=20), nullable=False),
+#     sa.Column('space', sa.String(length=16), nullable=False),
+#     sa.Column('natural_reach_tall', sa.String(length=16), nullable=False),
+#     sa.Column('natural_reach_long', sa.String(length=16), nullable=False),
+#     sa.PrimaryKeyConstraint('id'),
+#     mysql_charset='utf8',
+#     mysql_collate='utf8_general_ci',
+#     mysql_engine='InnoDB'
+#     )
+#     op.create_table('alignments',
+#     sa.Column('id', sa.Integer(), primary_key=True, ),
+#     sa.Column('description', sa.String(length=16), nullable=False),
+#     sa.PrimaryKeyConstraint('id'),
+#     mysql_charset='utf8',
+#     mysql_collate='utf8_general_ci',
+#     mysql_engine='InnoDB'
+#     )
+#     op.create_table('deities',
+#     sa.Column('id', sa.Integer(), primary_key=True, ),
+#     sa.Column('name', sa.String(length=16), nullable=False),
+#     sa.Column('represents', sa.String(length=60), nullable=False),
+#     sa.Column('alignment_id', sa.Integer(), nullable=False),
+#     sa.ForeignKeyConstraint(['alignment_id'], ['alignments.id'], ),    
+#     sa.PrimaryKeyConstraint('id'),
+#     mysql_charset='utf8',
+#     mysql_collate='utf8_general_ci',
+#     mysql_engine='InnoDB'
+#     )
+
+#     op.create_table('themes',
+#     sa.Column('id', models.GUID(length=16), nullable=False),
+#     sa.Column('name', sa.String(length=16), nullable=False),
+#     sa.PrimaryKeyConstraint('id'),
+#     mysql_charset='utf8',
+#     mysql_collate='utf8_general_ci',
+#     mysql_engine='InnoDB'
+#     )
+
+#     op.create_table('theme_modifiers',
+#     sa.Column('id', models.GUID(length=16), nullable=False),
+#     sa.Column('name', sa.String(length=16), nullable=False),
+#     sa.PrimaryKeyConstraint('id'),
+#     mysql_charset='utf8',
+#     mysql_collate='utf8_general_ci',
+#     mysql_engine='InnoDB'
+#     )
+
+
+#     op.create_table('character_details',
+#     sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
+#     sa.Column('updated_at', sa.DateTime(), nullable=True),
+#     sa.Column('id', models.GUID(length=16), nullable=False),
+#     sa.Column('class_id', sa.Integer(), nullable=False),
+#     sa.Column('race_id', sa.Integer(), nullable=False),
+#     sa.Column('theme_id', sa.Integer(), nullable=False),
+#     sa.Column('home_world_id', sa.Integer(), nullable=False),
+#     sa.Column('deity_id', sa.Integer(), nullable=False),
+#     sa.Column('size',sa.Integer(), nullable=False),
+#     sa.Column('alignment', sa.Integer(), nullable=False),
+#     sa.Column('gender', sa.String(length=16), nullable=False),
+#     sa.Column('description', sa.String(length=160), nullable=False),
+#     sa.ForeignKeyConstraint(['class_id'], ['classes.id'], ),    
+#     sa.ForeignKeyConstraint(['race_id'], ['races.id'], ),    
+#     sa.ForeignKeyConstraint(['theme_id'], ['themes.id'], ),    
+#     sa.ForeignKeyConstraint(['home_world_id'], ['home_worlds.id'], ),    
+#     sa.ForeignKeyConstraint(['deity_id'], ['deities.id'], ),    
+#     sa.ForeignKeyConstraint(['size'], ['creature_sizes.id'], ),    
+#     sa.ForeignKeyConstraint(['alignment'], ['alignments.id'], ),    
+#     sa.PrimaryKeyConstraint('id'),
+#     mysql_charset='utf8',
+#     mysql_collate='utf8_general_ci',
+#     mysql_engine='InnoDB'
+#     )
+
+
+
+
+#
+
+
+
+
+    op.create_table('character',
     sa.Column('id', models.GUID(length=16), nullable=False),
     sa.Column('name', sa.String(length=16), nullable=False),
     sa.PrimaryKeyConstraint('id'),
@@ -64,98 +201,220 @@ def upgrade():
     mysql_collate='utf8_general_ci',
     mysql_engine='InnoDB'
     )
-    op.create_table('classes',
-    sa.Column('id', sa.Integer(), primary_key=True, ),
+    op.create_table('character_skills',
     sa.Column('character_id', models.GUID(length=16), nullable=False),
-    sa.ForeignKeyConstraint(['character_id'], ['characters.id'], ),    
-    sa.PrimaryKeyConstraint('id'),
-    mysql_charset='utf8',
-    mysql_collate='utf8_general_ci',
-    mysql_engine='InnoDB'
-    )
-    op.create_table('races',
-    sa.Column('id', sa.Integer(), primary_key=True, ),
-    sa.Column('character_id', models.GUID(length=16), nullable=False),
-    sa.ForeignKeyConstraint(['character_id'], ['characters.id'], ),    
-    sa.PrimaryKeyConstraint('id'),
-    mysql_charset='utf8',
-    mysql_collate='utf8_general_ci',
-    mysql_engine='InnoDB'
-    )
-    op.create_table('themes',
-    sa.Column('id', sa.Integer(), primary_key=True, ),
-    sa.Column('character_id', models.GUID(length=16), nullable=False),
-    sa.ForeignKeyConstraint(['character_id'], ['characters.id'], ),    
-    sa.PrimaryKeyConstraint('id'),
-    mysql_charset='utf8',
-    mysql_collate='utf8_general_ci',
-    mysql_engine='InnoDB'
-    )
-    op.create_table('home_worlds',
-    sa.Column('id', sa.Integer(), primary_key=True, ),
-    sa.Column('home_world', sa.String(length=16), nullable=False),
-    sa.PrimaryKeyConstraint('id'),
-    mysql_charset='utf8',
-    mysql_collate='utf8_general_ci',
-    mysql_engine='InnoDB'
-    )
-    op.create_table('creature_sizes',
-    sa.Column('id', sa.Integer(), primary_key=True, ),
-    sa.Column('size_category', sa.String(length=16), nullable=False),
-    sa.Column('height_or_length', sa.String(length=16), nullable=False),
-    sa.Column('weight', sa.String(length=20), nullable=False),
-    sa.Column('space', sa.String(length=16), nullable=False),
-    sa.Column('natural_reach_tall', sa.String(length=16), nullable=False),
-    sa.Column('natural_reach_long', sa.String(length=16), nullable=False),
-    sa.PrimaryKeyConstraint('id'),
-    mysql_charset='utf8',
-    mysql_collate='utf8_general_ci',
-    mysql_engine='InnoDB'
-    )
-    op.create_table('alignments',
-    sa.Column('id', sa.Integer(), primary_key=True, ),
-    sa.Column('description', sa.String(length=16), nullable=False),
-    sa.PrimaryKeyConstraint('id'),
-    mysql_charset='utf8',
-    mysql_collate='utf8_general_ci',
-    mysql_engine='InnoDB'
-    )
-    op.create_table('deities',
-    sa.Column('id', sa.Integer(), primary_key=True, ),
-    sa.Column('name', sa.String(length=16), nullable=False),
-    sa.Column('represents', sa.String(length=60), nullable=False),
-    sa.Column('alignment_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['alignment_id'], ['alignments.id'], ),    
+    sa.Column('every_skill_work_on_later', sa.String(length=16), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     mysql_charset='utf8',
     mysql_collate='utf8_general_ci',
     mysql_engine='InnoDB'
     )
     op.create_table('character_details',
-    sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.Column('id', models.GUID(length=16), nullable=False),
-    sa.Column('class_id', sa.Integer(), nullable=False),
-    sa.Column('race_id', sa.Integer(), nullable=False),
-    sa.Column('theme_id', sa.Integer(), nullable=False),
+    sa.Column('character_id', models.GUID(length=16), nullable=False),
+    sa.Column('level', sa.Integer(), nullable=False),
+    sa.Column('size', sa.Integer(), nullable=False),
+    sa.Column('gender', sa.Integer(), nullable=False),
+    sa.Column('description', sa.Integer(), nullable=False),
+    sa.Column('alignment_id', sa.Integer(), nullable=False),
+    sa.Column('diety_id', sa.Integer(), nullable=False),
     sa.Column('home_world_id', sa.Integer(), nullable=False),
-    sa.Column('deity_id', sa.Integer(), nullable=False),
-    sa.Column('size',sa.Integer(), nullable=False),
-    sa.Column('alignment', sa.Integer(), nullable=False),
-    sa.Column('gender', sa.String(length=16), nullable=False),
-    sa.Column('description', sa.String(length=160), nullable=False),
-    sa.ForeignKeyConstraint(['class_id'], ['classes.id'], ),    
-    sa.ForeignKeyConstraint(['race_id'], ['races.id'], ),    
-    sa.ForeignKeyConstraint(['theme_id'], ['themes.id'], ),    
-    sa.ForeignKeyConstraint(['home_world_id'], ['home_worlds.id'], ),    
-    sa.ForeignKeyConstraint(['deity_id'], ['deities.id'], ),    
-    sa.ForeignKeyConstraint(['size'], ['creature_sizes.id'], ),    
-    sa.ForeignKeyConstraint(['alignment'], ['alignments.id'], ),    
+    sa.Column('theme_id', sa.Integer(), nullable=False),
+    sa.Column('race_id', sa.Integer(), nullable=False),
+    sa.Column('class_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['class_id'], ['classes.id'], ),
+    sa.ForeignKeyConstraint(['race_id'], ['races.id'], ),
+    sa.ForeignKeyConstraint(['theme_id'], ['themes.id'], ),
+    sa.ForeignKeyConstraint(['home_world_id'], ['home_worlds.id'], ),
+    sa.ForeignKeyConstraint(['diety_id'], ['dieties.id'], ),
+    sa.ForeignKeyConstraint(['alignment_id'], ['alignments.id'], ),
+    sa.ForeignKeyConstraint(['class_id'], ['classes.id'], ),
+    mysql_charset='utf8',
+    mysql_collate='utf8_general_ci',
+    mysql_engine='InnoDB'
+    )  
+  
+
+ 
+  
+    
+    
+
+
+    op.create_table('character_spells',
+    sa.Column('character_id', models.GUID(length=16), nullable=False),
+    sa.Column('spell_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['character_id'], [character.id]),
+    sa.ForeignKeyConstraint(['spell_id'], [spells.id]),
+    mysql_charset='utf8',
+    mysql_collate='utf8_general_ci',
+    mysql_engine='InnoDB'
+    )
+
+    op.create_table('character_feats',
+    sa.Column('character_id', models.GUID(length=16), nullable=False),
+    sa.Column('feat_id', sa.String(length=16), nullable=False),
+    sa.ForeignKeyConstraint(['character_id'], [character.id]),
+    sa.ForeignKeyConstraint(['feat_id'], [feats.id]),
+    mysql_charset='utf8',
+    mysql_collate='utf8_general_ci',
+    mysql_engine='InnoDB'
+    )
+
+    op.create_table('class_features',
+    sa.Column('id', models.GUID(length=16), nullable=False),
+    sa.Column('class_id', sa.String(length=16), nullable=False),
+    sa.Column('attributes', sa.String(length=16), nullable=False),
+    sa.ForeignKeyConstraint(['class_id'], [classes.id]),
+    sa.ForeignKeyConstraint(['feat_id'], [feats.id]),
+
     sa.PrimaryKeyConstraint('id'),
     mysql_charset='utf8',
     mysql_collate='utf8_general_ci',
     mysql_engine='InnoDB'
     )
+
+    op.create_table('feature_options',
+    sa.Column('id', models.GUID(length=16), nullable=False),
+    #sa.Column('parent_id', sa.String(length=16), nullable=False), ???
+    sa.Column('attributes', sa.String(length=16), nullable=False),    
+    sa.PrimaryKeyConstraint('id'),
+    mysql_charset='utf8',
+    mysql_collate='utf8_general_ci',
+    mysql_engine='InnoDB'
+    )
+
+    op.create_table('feats',
+    sa.Column('id', models.GUID(length=16), nullable=False),
+    sa.Column('attributes', sa.String(length=16), nullable=False),
+    # sa.Column('modifier_id', sa.String(length=16), nullable=False), ???
+    sa.ForeignKeyConstraint(['modifier_id'], [classes.id]),
+
+
+    sa.PrimaryKeyConstraint('id'),
+    mysql_charset='utf8',
+    mysql_collate='utf8_general_ci',
+    mysql_engine='InnoDB'
+    )
+
+    op.create_table('proficiencies',
+    sa.Column('class_id', models.GUID(length=16), nullable=False),
+    sa.Column('feat_id', sa.String(length=16), nullable=False),
+    sa.ForeignKeyConstraint(['class_id'], [classes.id]),
+    sa.ForeignKeyConstraint(['feat_id'], [feats.id]),
+    mysql_charset='utf8',
+    mysql_collate='utf8_general_ci',
+    mysql_engine='InnoDB'
+    )
+
+    op.create_table('spells',
+    sa.Column('spell_id', models.GUID(length=16), nullable=False),
+    sa.Column('attributes', sa.String(length=16), nullable=False),
+    sa.PrimaryKeyConstraint('spell_id'),
+    mysql_charset='utf8',
+    mysql_collate='utf8_general_ci',
+    mysql_engine='InnoDB'
+    )
+# End Here
+
+    op.create_table('alignments',
+    sa.Column('id', models.GUID(length=16), nullable=False),
+    sa.Column('name', sa.String(length=16), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    mysql_charset='utf8',
+    mysql_collate='utf8_general_ci',
+    mysql_engine='InnoDB'
+    )
+
+    op.create_table('place_of_worship',
+    sa.Column('id', models.GUID(length=16), nullable=False),
+    sa.Column('name', sa.String(length=16), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    mysql_charset='utf8',
+    mysql_collate='utf8_general_ci',
+    mysql_engine='InnoDB'
+    )
+
+    op.create_table('dieties',
+    sa.Column('id', models.GUID(length=16), nullable=False),
+    sa.Column('name', sa.String(length=16), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    mysql_charset='utf8',
+    mysql_collate='utf8_general_ci',
+    mysql_engine='InnoDB'
+    )
+
+    op.create_table('races',
+    sa.Column('id', models.GUID(length=16), nullable=False),
+    sa.Column('name', sa.String(length=16), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    mysql_charset='utf8',
+    mysql_collate='utf8_general_ci',
+    mysql_engine='InnoDB'
+    )
+
+    op.create_table('native_races',
+    sa.Column('id', models.GUID(length=16), nullable=False),
+    sa.Column('name', sa.String(length=16), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    mysql_charset='utf8',
+    mysql_collate='utf8_general_ci',
+    mysql_engine='InnoDB'
+    )
+
+    op.create_table('racial_traits',
+    sa.Column('id', models.GUID(length=16), nullable=False),
+    sa.Column('name', sa.String(length=16), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    mysql_charset='utf8',
+    mysql_collate='utf8_general_ci',
+    mysql_engine='InnoDB'
+    )
+
+    op.create_table('trait_modifiers',
+    sa.Column('id', models.GUID(length=16), nullable=False),
+    sa.Column('name', sa.String(length=16), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    mysql_charset='utf8',
+    mysql_collate='utf8_general_ci',
+    mysql_engine='InnoDB'
+    )
+
+    op.create_table('trait_feats',
+    sa.Column('id', models.GUID(length=16), nullable=False),
+    sa.Column('name', sa.String(length=16), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    mysql_charset='utf8',
+    mysql_collate='utf8_general_ci',
+    mysql_engine='InnoDB'
+    )
+
+    op.create_table('character_equipment',
+    sa.Column('id', models.GUID(length=16), nullable=False),
+    sa.Column('name', sa.String(length=16), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    mysql_charset='utf8',
+    mysql_collate='utf8_general_ci',
+    mysql_engine='InnoDB'
+    )
+
+    op.create_table('equipment',
+    sa.Column('id', models.GUID(length=16), nullable=False),
+    sa.Column('name', sa.String(length=16), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    mysql_charset='utf8',
+    mysql_collate='utf8_general_ci',
+    mysql_engine='InnoDB'
+    )
+
+
+
+
+
+
+
+
+
+
     op.bulk_insert(alignments,
                    [
                        {'description': 'Good'},
