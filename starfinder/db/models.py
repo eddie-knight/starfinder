@@ -131,13 +131,13 @@ class User(db_engine.Model, ModelBase, HasId):
 Character Classes
 -----------------
 
-class Character(Base, HasId):
+class Character(db_engine.Model, ModelBase, HasId):
     name = sa.Column(sa.String(), nullable=False)
 
     def __str__(self):
         return self.name
 
-class CharacterDetail(Base, HasId):
+class CharacterDetail(db_engine.Model, ModelBase, HasId):
     character_id = sa.Column(sa.ForeignKey("characters.id"),
                                      nullable=False)
     alignment_id = sa.Column(sa.ForeignKey("alignments.id"),
@@ -158,19 +158,19 @@ class CharacterDetail(Base, HasId):
     gender = sa.Column(sa.String(6), nullable=False)
     description = sa.Column(sa.String(160), nullable=False)
 
-class CharacterEquipment(Base, HasId):
+class CharacterEquipment(db_engine.Model, ModelBase, HasId):
     character_id = sa.Column(sa.ForeignKey("characters.id"),
                                      nullable=False)
     attributes = sa.Column(sa.JSON("equipment.attributes"),
                                      nullable=False)
 
-class CharacterFeat(Base, HasId):
+class CharacterFeat(db_engine.Model, ModelBase, HasId):
     character_id = sa.Column(sa.ForeignKey("characters.id"),
                                      nullable=False)
     feat_id = sa.Column(sa.ForeignKey("feats.id"),
                                      nullable=False)
 
-class CharacterSkill(Base, HasId):
+class CharacterSkill(db_engine.Model, ModelBase, HasId):
     character_id = sa.Column(sa.ForeignKey("characters.id"),
                                      nullable=False)
     acrobatics = sa.Column(sa.Integer(), nullable=False, default=False)
@@ -198,47 +198,47 @@ class CharacterSkill(Base, HasId):
 # Equipment Classes
 # -----------------
 
-class Equipment(Base, HasId):
+class Equipment(db_engine.Model, ModelBase, HasId):
     attributes = sa.Column(sa.JSON("equipment.attributes"),
                                      nullable=False)
 
-class Ammunition(Base, HasId):
+class Ammunition(db_engine.Model, ModelBase, HasId):
     attributes = sa.Column(sa.JSON("ammunition.attributes"),
                                      nullable=False)
 
-class Armor(Base, HasId):
+class Armor(db_engine.Model, ModelBase, HasId):
     attributes = sa.Column(sa.JSON("armor.attributes"),
                                      nullable=False)
 
-class ArmorUpgrade(Base, HasId):
+class ArmorUpgrade(db_engine.Model, ModelBase, HasId):
     attributes = sa.Column(sa.JSON("armor_upgrades.attributes"),
                                      nullable=False)
 
-class Augmentation(Base, HasId):
+class Augmentation(db_engine.Model, ModelBase, HasId):
     attributes = sa.Column(sa.JSON("augmentations.attributes"),
                                      nullable=False)
 
-class Computer(Base, HasId):
+class Computer(db_engine.Model, ModelBase, HasId):
     attributes = sa.Column(sa.JSON("computers.attributes"),
                                      nullable=False)
 
-class ComputerUpgrade(Base, HasId):
+class ComputerUpgrade(db_engine.Model, ModelBase, HasId):
     attributes = sa.Column(sa.JSON("computer_upgrades.attributes"),
                                      nullable=False)
 
-class Fusion(Base, HasId):
+class Fusion(db_engine.Model, ModelBase, HasId):
     attributes = sa.Column(sa.JSON("fusions.attributes"),
                                      nullable=False)
 
-class Grenade(Base, HasId):
+class Grenade(db_engine.Model, ModelBase, HasId):
     attributes = sa.Column(sa.JSON("grenades.attributes"),
                                      nullable=False)
 
-class MeleeWeapon(Base, HasId):
+class MeleeWeapon(db_engine.Model, ModelBase, HasId):
     attributes = sa.Column(sa.JSON("melee_weapons.attributes"),
                                      nullable=False)
 
-class RangedWeapon(Base, HasId):
+class RangedWeapon(db_engine.Model, ModelBase, HasId):
     attributes = sa.Column(sa.JSON("ranged_weapons.attributes"),
                                      nullable=False)
 
@@ -247,31 +247,31 @@ class RangedWeapon(Base, HasId):
 # Info Classes
 # ------------
 
-class Alignment(Base, HasId):
+class Alignment(db_engine.Model, ModelBase, HasId):
     name = sa.Column(sa.String(), nullable=False)
     description = sa.Column(sa.String(), nullable=False)
 
-class Size(Base, HasId):
+class Size(db_engine.Model, ModelBase, HasId):
     name = sa.Column(sa.String(), nullable=False)
     description = sa.Column(sa.String(), nullable=False)
 
-class Deitie(Base, HasId):
+class Deitie(db_engine.Model, ModelBase, HasId):
     name = sa.Column(sa.String(), nullable=False)
     alignment_id = sa.Column(sa.ForeignKey("alignments.id"),
                                      nullable=False)
     description = sa.Column(sa.String(), nullable=False)
 
-class World(Base, HasId):
+class World(db_engine.Model, ModelBase, HasId):
     name = sa.Column(sa.String(), nullable=False)
     description = sa.Column(sa.String(), nullable=False)
 
-class PlacesOfWorship(Base, HasId):
+class PlacesOfWorship(db_engine.Model, ModelBase, HasId):
     world_id = sa.Column(sa.ForeignKey("worlds.id"),
                                      nullable=False)
     deity_id = sa.Column(sa.ForeignKey("deities.id"),
                                      nullable=False)
 
-class NativeRace(Base, HasId):
+class NativeRace(db_engine.Model, ModelBase, HasId):
     world_id = sa.Column(sa.ForeignKey("worlds.id"),
                                      nullable=False)
     race_id = sa.Column(sa.ForeignKey("race.id"),
@@ -282,7 +282,7 @@ class NativeRace(Base, HasId):
 # Race Classes
 # ------------
 
-class Race(Base, HasId):
+class Race(db_engine.Model, ModelBase, HasId):
     home_world_id = sa.Column(sa.ForeignKey("worlds.id"),
                                      nullable=False)
     size_id = sa.Column(sa.ForeignKey("sizes.id"),
@@ -301,13 +301,13 @@ class Race(Base, HasId):
     adventurers = sa.Column(sa.String(), nullable=False)
     names = sa.Column(sa.String(), nullable=False)
 
-class RacialTraits(Base, HasId):
+class RacialTraits(db_engine.Model, ModelBase, HasId):
     race_id = sa.Column(sa.ForeignKey("races.id"),
                                      nullable=False)
     name = sa.Column(sa.String(), nullable=False)
     description = sa.Column(sa.String(), nullable=False)
 
-class AssociatedFeats(Base, HasId):
+class AssociatedFeats(db_engine.Model, ModelBase, HasId):
     trait_id = sa.Column(sa.ForeignKey("traits.id"),
                                      nullable=False)
     feat_id = sa.Column(sa.ForeignKey("feats.id"),
@@ -318,7 +318,7 @@ class AssociatedFeats(Base, HasId):
 # Feat & Spell Classes
 # --------------------
 
-class Feats(Base, HasId):
+class Feats(db_engine.Model, ModelBase, HasId):
     modifier_id = sa.Column(sa.ForeignKey("races.id"),
                                      nullable=False)
     prereq_id = sa.Column(sa.ForeignKey("races.id"),
@@ -326,7 +326,7 @@ class Feats(Base, HasId):
     name = sa.Column(sa.String(), nullable=False)
     description = sa.Column(sa.String(), nullable=False)
 
-class Spells(Base, HasId):
+class Spells(db_engine.Model, ModelBase, HasId):
     name = sa.Column(sa.String(), nullable=False)
     description = sa.Column(sa.String(), nullable=False)
 
@@ -335,23 +335,23 @@ class Spells(Base, HasId):
 # Modifier Classes
 # ----------------
 
-class Modifiers(Base, HasId):
+class Modifiers(db_engine.Model, ModelBase, HasId):
     effected_stat = sa.Column(sa.String(), nullable=False)
     modification = sa.Column(sa.Integer(), nullable=False)
 
-class TraitModifiers(Base, HasId):
+class TraitModifiers(db_engine.Model, ModelBase, HasId):
     trait_id = sa.Column(sa.ForeignKey("traits.id"),
                                      nullable=False)
     modifier_id = sa.Column(sa.ForeignKey("modifiers.id"),
                                      nullable=False)
 
-class FeatModifiers(Base, HasId):
+class FeatModifiers(db_engine.Model, ModelBase, HasId):
     trait_id = sa.Column(sa.ForeignKey("traits.id"),
                                      nullable=False)
     modifier_id = sa.Column(sa.ForeignKey("modifiers.id"),
                                      nullable=False)
 
-class ThemeModifiers(Base, HasId):
+class ThemeModifiers(db_engine.Model, ModelBase, HasId):
     trait_id = sa.Column(sa.ForeignKey("traits.id"),
                                      nullable=False)
     modifier_id = sa.Column(sa.ForeignKey("modifiers.id"),
