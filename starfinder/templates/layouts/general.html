@@ -1,0 +1,20 @@
+{% extends 'layouts/base.html' %}
+
+{% block styles %}
+    {{ super() }}
+{% endblock %}
+
+{% block header %}
+    {% include '_partials/header.html' %}
+    {% include '_partials/flash.html' %}
+{% endblock %}
+
+{% block body %}{% endblock %}
+
+{% block footer %}
+    {% include '_partials/footer.html' %}
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}
