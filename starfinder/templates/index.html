@@ -1,5 +1,11 @@
-<html>
-  <body>
-    Hello
-  </body>
-</html>
+{% extends 'layouts/general.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+Hello!
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}
