@@ -36,7 +36,7 @@ database : ## create database
 	make db_unset_localhost
 
 .PHONY : reset_db
-drop_db : ## create database
+reset_db : ## create database
 	$(DB_URL) $(BASENAME)_db_manage drop_database
 	$(DB_URL) $(BASENAME)_db_manage create_database
 
