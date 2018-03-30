@@ -240,21 +240,21 @@ class RangedWeapon(db_engine.Model, ModelBase, HasId):
 # ------------
 
 class Class(db_engine.Model, ModelBase, HasId):
-    name = db_engine.Column(db_engine.String(), nullable=False)
-    description = db_engine.Column(db_engine.String(), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    description = db_engine.Column(db_engine.String(832), nullable=False)
     hit_points = db_engine.Column(db_engine.Integer(), nullable=False)
     stamina_points = db_engine.Column(db_engine.Integer(), nullable=False)
     key_ability_score = db_engine.Column(db_engine.Integer(), nullable=False)
-    key_ability_score_text = db_engine.Column(db_engine.String(), nullable=False)
+    key_ability_score_text = db_engine.Column(db_engine.String(64), nullable=False)
     skills_per_level = db_engine.Column(db_engine.Integer(), nullable=False)
 
 class Theme(db_engine.Model, ModelBase, HasId):
-    name = db_engine.Column(db_engine.String(), nullable=False)
-    description = db_engine.Column(db_engine.String(), nullable=False)
-    level_1 = db_engine.Column(db_engine.String(), nullable=False)
-    level_6 = db_engine.Column(db_engine.String(), nullable=False)
-    level_12 = db_engine.Column(db_engine.String(), nullable=False)
-    level_18 = db_engine.Column(db_engine.String(), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
+    level_1 = db_engine.Column(db_engine.String(64), nullable=False)
+    level_6 = db_engine.Column(db_engine.String(64), nullable=False)
+    level_12 = db_engine.Column(db_engine.String(64), nullable=False)
+    level_18 = db_engine.Column(db_engine.String(64), nullable=False)
 
 
 # ------------
@@ -262,22 +262,22 @@ class Theme(db_engine.Model, ModelBase, HasId):
 # ------------
 
 class Alignment(db_engine.Model, ModelBase, HasId):
-    name = db_engine.Column(db_engine.String(), nullable=False)
-    description = db_engine.Column(db_engine.String(), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
 
 class Size(db_engine.Model, ModelBase, HasId):
-    name = db_engine.Column(db_engine.String(), nullable=False)
-    description = db_engine.Column(db_engine.String(), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
 
 class Deity(db_engine.Model, ModelBase, HasId):
-    name = db_engine.Column(db_engine.String(), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
     alignment_id = db_engine.Column(db_engine.ForeignKey("alignments.id"),
                                      nullable=False)
-    description = db_engine.Column(db_engine.String(), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
 
 class World(db_engine.Model, ModelBase, HasId):
-    name = db_engine.Column(db_engine.String(), nullable=False)
-    description = db_engine.Column(db_engine.String(), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
 
 class PlacesOfWorship(db_engine.Model, ModelBase, HasId):
     world_id = db_engine.Column(db_engine.ForeignKey("worlds.id"),
@@ -301,25 +301,25 @@ class Race(db_engine.Model, ModelBase, HasId):
                                      nullable=False)
     size_id = db_engine.Column(db_engine.ForeignKey("sizes.id"),
                                      nullable=False)
-    name = db_engine.Column(db_engine.String(), nullable=False)
-    avg_height = db_engine.Column(db_engine.String(), nullable=False)
-    avg_weight = db_engine.Column(db_engine.String(), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    avg_height = db_engine.Column(db_engine.String(64), nullable=False)
+    avg_weight = db_engine.Column(db_engine.Integer(), nullable=False)
     age_of_maturity = db_engine.Column(db_engine.Integer(), nullable=False)
-    max_age = db_engine.Column(db_engine.String(), nullable=False)
-    description = db_engine.Column(db_engine.String(), nullable=False)
+    max_age = db_engine.Column(db_engine.Integer(), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
     hit_points = db_engine.Column(db_engine.Integer(), nullable=False)
-    type = db_engine.Column(db_engine.String(), nullable=False)
-    physical_description = db_engine.Column(db_engine.String(), nullable=False)
-    society_and_alignment = db_engine.Column(db_engine.String(), nullable=False)
-    relations = db_engine.Column(db_engine.String(), nullable=False)
-    adventurers = db_engine.Column(db_engine.String(), nullable=False)
-    names = db_engine.Column(db_engine.String(), nullable=False)
+    type_type = db_engine.Column(db_engine.String(64), nullable=False)
+    physical_description = db_engine.Column(db_engine.String(64), nullable=False)
+    society_and_alignment = db_engine.Column(db_engine.String(64), nullable=False)
+    relations = db_engine.Column(db_engine.String(64), nullable=False)
+    adventurers = db_engine.Column(db_engine.String(64), nullable=False)
+    names = db_engine.Column(db_engine.String(64), nullable=False)
 
 class RacialTrait(db_engine.Model, ModelBase, HasId):
     race_id = db_engine.Column(db_engine.ForeignKey("races.id"),
                                      nullable=False)
-    name = db_engine.Column(db_engine.String(), nullable=False)
-    description = db_engine.Column(db_engine.String(), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
 
 class AssociatedFeat(db_engine.Model, ModelBase, HasId):
     trait_id = db_engine.Column(db_engine.ForeignKey("racial_traits.id"),
@@ -337,12 +337,12 @@ class Feat(db_engine.Model, ModelBase, HasId):
                                      nullable=False)
     prereq_id = db_engine.Column(db_engine.ForeignKey("races.id"),
                                      nullable=False)
-    name = db_engine.Column(db_engine.String(), nullable=False)
-    description = db_engine.Column(db_engine.String(), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
 
 class Spell(db_engine.Model, ModelBase, HasId):
-    name = db_engine.Column(db_engine.String(), nullable=False)
-    description = db_engine.Column(db_engine.String(), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
 
 
 # ----------------
@@ -350,7 +350,7 @@ class Spell(db_engine.Model, ModelBase, HasId):
 # ----------------
 
 class Modifier(db_engine.Model, ModelBase, HasId):
-    effected_stat = db_engine.Column(db_engine.String(), nullable=False)
+    effected_stat = db_engine.Column(db_engine.String(64), nullable=False)
     modification = db_engine.Column(db_engine.Integer(), nullable=False)
 
 
@@ -374,9 +374,8 @@ class ThemeModifier(db_engine.Model, ModelBase, HasId):
                                      nullable=False)
 
 class Character(db_engine.Model, ModelBase, HasId):
-    name = db_engine.Column(db_engine.String(), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
 
     def __str__(self):
         return self.name
 
-db_engine.create_all()
