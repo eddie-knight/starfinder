@@ -187,6 +187,8 @@ class CharacterSkill(db_engine.Model, ModelBase, HasId):
     stealth = db_engine.Column(db_engine.Integer(), nullable=False, default=False)
     survival = db_engine.Column(db_engine.Integer(), nullable=False, default=False)
 
+
+
 # -----------------
 # Equipment Classes
 # -----------------
@@ -255,6 +257,17 @@ class Theme(db_engine.Model, ModelBase, HasId):
     level_6 = db_engine.Column(db_engine.String(64), nullable=False)
     level_12 = db_engine.Column(db_engine.String(64), nullable=False)
     level_18 = db_engine.Column(db_engine.String(64), nullable=False)
+
+class ClassSpecialSkill(db_engine.Model, ModelBase, HasId):
+    class_id = db_engine.Column(db_engine.ForeignKey("classes.id"),
+                                     nullable=False)
+    class_name = db_engine.Column(db_engine.String(64), nullable=False)
+    special_name = db_engine.Column(db_engine.String(64), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
+
+
+
+
 
 
 # ------------
