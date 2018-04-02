@@ -3,7 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 from starfinder import exception
-from starfinder.app import users, classes, feats
+from starfinder.app import users, characters, classes, feats
 
 class Config(object):
 
@@ -36,7 +36,7 @@ def create_app():
     app.config['static_folder'] = 'static'
     app.config['SQLALCHEMY_DATABASE_URI'] = ENGINE_URL
     # Establish the following .py files and their routes
-    blueprint_mods = [users, classes, feats]
+    blueprint_mods = [users, characters, classes, feats]
     for mod in blueprint_mods:
         app.register_blueprint(mod.BLUEPRINT, url_prefix=mod.URL_PREFIX)
     return app

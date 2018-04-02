@@ -10,6 +10,8 @@
     {% block styles %}
         <!-- Google Fonts -->
         <!-- Bootstrap Elements -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/css/bootswatch-slate.css">
         <!-- Custom Elements -->
     {% endblock %}
 
@@ -20,11 +22,26 @@
     {% block body_scripts %}{% endblock %}
 
     {% block header %}{% endblock %}
-    {% block body %}{% endblock %}
+    <div class="row">
+        <div class="col-md-2">
+            {% block sidebar %}{% endblock %}
+        </div>
+        <div class="col-md-7" style="background:#eaeaea">
+            {% block body %}{% endblock %}
+        </div>
+        <div class="col-md-3" style="height:100vh; background:#162B30">
+            {% block adspace %}{% endblock %}
+        </div>
+    </div>
     {% block footer %}{% endblock %}
 
   {% block scripts %}
-    <!-- <script src=""></script> -->
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" integrity="sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D" crossorigin="anonymous"></script>
   {% endblock %}
 </body>
 </html>

@@ -16,7 +16,10 @@ def run_server():
 
 @app.route('/', methods=['GET'])
 def index():
-    return flask.render_template('index.html')
+	context = {
+		'current_route':'index'
+	}
+	return flask.render_template('index.html', **context)
 
 if __name__ == "__main__":
     run_server()
