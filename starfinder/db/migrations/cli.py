@@ -26,6 +26,7 @@ ENGINE_URL = CONF.get("DB_ENGINE_URL")
 def migrate_cli():
     pass
 
+
 @migrate_cli.command(help="Creates the database. Must be run before any "
                           "migrations as 'upgrade' itself will not create "
                           "the database")
@@ -44,8 +45,7 @@ def abort_if_false(ctx, _param, value):
               expose_value=False,
               prompt='Are you sure you want to drop the database?')
 def drop_database():
-    if sqlalchemy_utils.database_exists(models.engine.url):
-        sqlalchemy_utils.drop_database(models.engine.url)
+    models.db_engine.drop_all()
 
 
 def test_connection():
