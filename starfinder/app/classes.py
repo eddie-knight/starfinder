@@ -7,4 +7,3 @@ BLUEPRINT = classes
 @classes.route('/')
 def view_all():
 	return flask.render_template('classes/show.html')
-			
