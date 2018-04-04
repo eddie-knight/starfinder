@@ -1,0 +1,24 @@
+#character-cards
+{
+	width:100%;
+}
+
+.character-card
+{
+	margin: 1vh 2px 1vh 2px;
+}
+
+.character-card h2
+{
+	font-size: 1.5em;
+}
+
+.character-card h3
+{
+	font-size: 1.2em;
+}
+
+#new-character
+{
+	width: 75%;
+}

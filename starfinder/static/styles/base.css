@@ -1,0 +1,18 @@
+#sidebar 
+{
+	padding-left: 1vw;
+}
+#sidebar ul
+{
+    border-width:2px 0 2px 0;
+    border-style: groove;
+	padding-left: 2vw;
+}
+#sidebar li
+{
+	list-style-type: none;
+}
+#content
+{
+	padding: 2vh 1vw 0 4vw;
+}
