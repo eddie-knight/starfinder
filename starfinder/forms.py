@@ -20,7 +20,11 @@ class MyBaseForm(wtforms.Form):
 		def csrf_context(self):
 			return session
 
-class CharacterCreationForm(MyBaseForm):
+class CharacterCreateForm(MyBaseForm):
 	name = wtforms.StringField(
 		"Character Name", [wtforms.validators.DataRequired()])
 	submit = wtforms.SubmitField('Create Character')
+
+class CharacterDeleteForm(MyBaseForm):
+	id = wtforms.StringField("Character ID")
+	submit = wtforms.SubmitField('Delete Character')
