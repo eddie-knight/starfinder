@@ -9,7 +9,7 @@ from sqlalchemy import orm, func
 from sqlalchemy.ext import declarative
 import sqlalchemy_utils
 
-from starfinder import config, logging
+from starfinder import config, logging, flask_app
 from starfinder.db import utils as db_utils
 
 CONF = config.CONF
@@ -20,7 +20,7 @@ TABLE_KWARGS = {"mysql_engine": "InnoDB",
                 "mysql_charset": "utf8",
                 "mysql_collate": "utf8_general_ci"}
 
-db_engine = config.db_engine
+db_engine = SQLAlchemy(flask_app)
 
 Session = db_engine.session
 
