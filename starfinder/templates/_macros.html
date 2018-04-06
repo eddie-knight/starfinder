@@ -1,0 +1,14 @@
+{% macro render_card(name='', id='', form='', form_target='', class='', body='', height=0, min_height=0, actions='') %}
+	<div class="character-card btn btn-secondary">
+		{{ name }}
+		<form method="post" action="{{ form_target }}" id="forgotPasswordForm">
+		    {{ form.csrf_token(id=False) }}
+		    <div class="form-group">
+		        <input name="id" placeholder="{{ id }}"></input>
+		    </div>
+		    <div class="d-flex flex-column flex-lg-row align-items-center justify-content-between">
+		        {{ form.submit }}
+		    </div>
+		</form>
+	</div>
+{% endmacro %}

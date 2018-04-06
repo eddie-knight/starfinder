@@ -1,11 +1,29 @@
 {% extends 'layouts/general.html' %}
+{% from '_macros.html' import render_card %}
 
 {% block title %}Home{% endblock %}
 
 {% block body %}
-<div class="container">
-	<h1>Character Builder</h1>
+<h1>Characters</h1>
+<p>Your characters are listed below. Click on a character to modify it, or click "Add New Character" to open the character builder with a blank new sheet.</p>
+<div id="character-cards" class="row justify-content-around align-content-around">
+	{% for char in characters %}
+		{{ render_card(name=char.name, 
+					   id=char.id,
+					   form=deletion_form, 
+					   form_target=url_for('characters.delete', char_id=char.id)) }}
+	{% endfor %}
 </div>
+<button id="new-character" class="btn btn-success">(+) New Character</button>
+<form method="post" action="{{ url_for('characters.create') }}" id="forgotPasswordForm">
+    {{ creation_form.csrf_token(id=False) }}
+    <div class="form-group">
+        {{ creation_form.name }}
+    </div>
+    <div class="d-flex flex-column flex-lg-row align-items-center justify-content-between">
+        {{ creation_form.submit }}
+    </div>
+</form>
 {% endblock %}
 
 {% block scripts %}

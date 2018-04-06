@@ -11,8 +11,10 @@
         <!-- Google Fonts -->
         <!-- Bootstrap Elements -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/static/css/bootswatch-slate.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/bootswatch-slate.css') }}">
         <!-- Custom Elements -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/characters.css') }}">
     {% endblock %}
 
   {% endblock %}
@@ -23,13 +25,13 @@
 
     {% block header %}{% endblock %}
     <div class="row">
-        <div class="col-md-2">
+        <div id="sidebar" class="d-none d-md-block col-md-2">
             {% block sidebar %}{% endblock %}
         </div>
-        <div class="col-md-7" style="background:#eaeaea">
+        <div id="content" class="col-md-7 col-sm-9 d-flex flex-column align-items-center" style="background:#eaeaea">
             {% block body %}{% endblock %}
         </div>
-        <div class="col-md-3" style="height:100vh; background:#162B30">
+        <div id="adspace" class="col-sm-3 d-flex align-items-center flex-column" style="height:100vh; background:#162B30">
             {% block adspace %}{% endblock %}
         </div>
     </div>
