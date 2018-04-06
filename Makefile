@@ -18,13 +18,6 @@ stop : ## teardown compose containers
 	@$(DOCKER_COMPOSE) docker-compose.${ENVIRONMENT}.yml stop; \
 	$(DOCKER_COMPOSE) docker-compose.${ENVIRONMENT}.yml rm -f
 
-.PHONY : running_web
-running_web :
-	@if [ "$(shell ${COMPOSE_CHECK} web | egrep -q "web.*Up" && echo 1 || echo 0)" -eq 0 ]; \
-	then \
-		echo "No running web found. Please start it with 'make run'"; \
-	fi
-
 .PHONY : drop_db
 drop_db : ## create database
 	$(DB_URL) $(BASENAME)_db_manage drop_database
@@ -41,10 +34,10 @@ reset_db : ## create database
 	$(DB_URL) $(BASENAME)_db_manage create_database
 
 .PHONY : reset_web
-reset_web : running_web ## teardown and recreate web container
+reset_web : ## teardown and recreate web container
 	@$(DOCKER) stop $(BASENAME)_web_1; \
 	$(DOCKER) rm $(BASENAME)_web_1; \
-	$(DOCKER_COMPOSE) docker-compose.${ENVIRONMENT}.yml up -database
+	$(DOCKER_COMPOSE) docker-compose.${ENVIRONMENT}.yml up -d
 
 .PHONY : logs
 logs : ## show logs from the last 10 minutes
