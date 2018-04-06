@@ -18,6 +18,7 @@ def create_app():
     flask_app.config['template_folder'] = 'templates'
     flask_app.config['static_folder'] = 'static'
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = CONF.get('db_engine_url')
+    flask_app.config['SECRET_KEY'] = CONF.get('csrf_secret_key')
     # Establish the following .py files and their routes
     blueprint_mods = [users, characters, classes, feats, themes,
                       spells, equipment, equipment, races, skills]
