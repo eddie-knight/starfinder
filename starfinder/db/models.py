@@ -1,14 +1,13 @@
 import contextlib
 import functools
-
 from flask import Flask
-
+from flask_sqlalchemy import SQLAlchemy
 import sqlalchemy as sa
 from sqlalchemy import orm, func
 from sqlalchemy.ext import declarative
 import sqlalchemy_utils
 
-from starfinder import config, logging, db_engine
+from starfinder import config, logging, flask_app
 from starfinder.db import utils as db_utils
 
 CONF = config.CONF
@@ -16,6 +15,9 @@ LOG = logging.get_logger(__name__)
 TABLE_KWARGS = {"mysql_engine": "InnoDB",
                 "mysql_charset": "utf8",
                 "mysql_collate": "utf8_general_ci"}
+
+flask_app.config['SQLALCHEMY_DATABASE_URI'] = CONF.get('db.engine.url')
+db_engine = SQLAlchemy(flask_app)
 Session = db_engine.session
 
 class ModelBase(object):
