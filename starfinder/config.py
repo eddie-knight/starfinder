@@ -27,4 +27,3 @@ class Config(object):
         return [value.strip() for value in self.get(key, default).split(",")]
 
 CONF = Config()
-ENGINE_URL = CONF.get("DB_ENGINE_URL")
