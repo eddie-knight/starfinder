@@ -15,7 +15,6 @@ BLUEPRINT = characters
 @characters.route('/')
 def view_all():
 	characters = models.Character.query.all()
-	LOG.debug(characters)
 	context = {
 		'characters': characters,
 		'creation_form': forms.CharacterCreateForm(),
@@ -24,13 +23,26 @@ def view_all():
 	}
 	return render_template('characters/show.html', **context)
 
+
 @characters.route('/new_character', methods=['POST'])
 def create():
 	form = forms.CharacterCreateForm(request.form)
 	char = models.Character(name=form.name.data)
 	models.Session.add(char)
 	models.Session.commit()
-	return redirect(url_for('characters.view_all'))
+	return redirect(url_for('characters.race_selection', char_id=char.id))
+
+
+@characters.route('/race_selection/<uuid:char_id>', methods=['GET', 'POST'])
+def race_selection(char_id):
+	form = forms.CharacterRaceForm(request.form)
+	character = models.Character.get(char_id)
+	context = {
+		'form': form,
+		'character': character
+	}
+	return render_template('characters/builder/race.html', **context)
+
 
 @characters.route('/delete_character/<uuid:char_id>', methods=['POST'])
 def delete(char_id):
@@ -38,4 +50,3 @@ def delete(char_id):
 	models.Session.delete(char)	
 	models.Session.commit()
 	return redirect(url_for('characters.view_all'))
-
