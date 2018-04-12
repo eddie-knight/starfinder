@@ -4,9 +4,17 @@ from wtforms.csrf.session import SessionCSRF
 from flask import session
 
 from starfinder import config, logging
+from starfinder.db import models
 
 CONF = config.CONF
 LOG = logging.get_logger(__name__)
+
+races = models.Race.query.all()
+
+def race_options():
+	return [{'android','Android'},
+			{'human','Human'},
+			{'kasatha', 'Kasatha'}]
 
 class MyBaseForm(wtforms.Form):
 	class Meta:
@@ -28,3 +36,8 @@ class CharacterCreateForm(MyBaseForm):
 class CharacterDeleteForm(MyBaseForm):
 	id = wtforms.StringField("Character ID")
 	submit = wtforms.SubmitField('Delete Character')
+
+class CharacterRaceForm(MyBaseForm):
+	id = wtforms.StringField("Character ID")
+	race = wtforms.SelectField('Select Race', choices=race_options())
+	submit = wtforms.SubmitField('Next')

@@ -1,0 +1,27 @@
+{% extends 'layouts/general.html' %}
+{% from '_macros.html' import render_card %}
+
+{% block title %}Race Selection{% endblock %}
+
+{% block body %}
+<h1>{{ character.name }}</h1>
+<p>This form currently supports single-race characters. Please select your race below!</p>
+<form method="post" action="{{ url_for('characters.race_selection', char_id=character.id) }}" id="characterRaceForm">
+    {{ form.csrf_token(id=False) }}
+    <div class="form-group">
+    	{{ form.race.label }}
+        <select>
+	        {% for field in form.race %}
+	        	{{ field }}
+	        {% endfor %}
+    	</select>
+    </div>
+    <div class="d-flex flex-column flex-lg-row align-items-center justify-content-between">
+        {{ form.submit }}
+    </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}
