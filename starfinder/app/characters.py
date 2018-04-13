@@ -1,5 +1,6 @@
-import flask
 import requests
+
+import flask
 from flask import url_for, render_template, request, redirect
 
 from starfinder import forms, config, logging
@@ -37,6 +38,7 @@ def create():
 
 @characters.route('/update_character', methods=['POST'])
 def update():
+	# TODO: Build a generalized form for this
 	form = forms.CharacterRaceForm(request.form)
 	character = models.Character.get(form.id.data)
 	helper.update_character(form, character)
@@ -68,6 +70,7 @@ def theme_selection(char_id):
 @characters.route('/delete_character/', methods=['POST'])
 def delete():
 	form = forms.CharacterDeleteForm(request.form)
+	LOG.debug("Deleting Character by ID: %s", form.id.data)
 	char = models.Character.get(form.id.data)
 	models.Session.delete(char)	
 	models.Session.commit()
