@@ -1,10 +1,15 @@
 from starfinder.db import models
+from starfinder import logging
 
+LOG = logging.get_logger(__name__)
 
 class Helper(object):
 
-	def existing_user(self, username):
-	    return models.User._get_by("username", username)
-
-	def is_existing_user(self, username):
-	    return self.existing_user(username) is not None
+	def update_character(self, form, char):
+		LOG.debug(char)
+		attributes = dict(char).keys
+		for key, value in attributes:
+			if key in form:
+				setattr(char, key, getattr(form, key))
+		models.Session.add(char)
+		models.Session.commit()
