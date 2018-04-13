@@ -1,5 +1,5 @@
 {% extends 'layouts/general.html' %}
-{% from '_macros.html' import render_card %}
+{% from '_macros.html' import render_character %}
 
 {% block title %}Characters{% endblock %}
 
@@ -8,10 +8,9 @@
 <p>Your characters are listed below. Click on a character to modify it, or click "Add New Character" to open the character builder with a blank new sheet.</p>
 <div id="character-cards" class="row justify-content-around align-content-around">
 	{% for char in characters %}
-		{{ render_card(name=char.name, 
-					   id=char.id,
-					   form=deletion_form, 
-					   form_target=url_for('characters.delete')) }}
+		{{ render_character(char=char,
+					        form=deletion_form,
+					        form_target=url_for('characters.delete')) }}
 	{% endfor %}
 </div>
 <button id="new-character" class="btn btn-success">(+) New Character</button>
