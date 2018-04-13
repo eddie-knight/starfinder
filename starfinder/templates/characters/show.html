@@ -11,7 +11,7 @@
 		{{ render_card(name=char.name, 
 					   id=char.id,
 					   form=deletion_form, 
-					   form_target=url_for('characters.delete', char_id=char.id)) }}
+					   form_target=url_for('characters.delete')) }}
 	{% endfor %}
 </div>
 <button id="new-character" class="btn btn-success">(+) New Character</button>

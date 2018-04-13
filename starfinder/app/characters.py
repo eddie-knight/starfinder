@@ -44,9 +44,10 @@ def race_selection(char_id):
 	return render_template('characters/builder/race.html', **context)
 
 
-@characters.route('/delete_character/<uuid:char_id>', methods=['POST'])
-def delete(char_id):
-	char = models.Character.get(char_id)
+@characters.route('/delete_character/', methods=['POST'])
+def delete():
+	form = forms.CharacterDeleteForm(request.form)
+	char = models.Character.get(form.id.data)
 	models.Session.delete(char)	
 	models.Session.commit()
 	return redirect(url_for('characters.view_all'))
