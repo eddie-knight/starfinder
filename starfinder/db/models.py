@@ -35,7 +35,7 @@ class ModelBase(object):
 
     def __getitem__(self, key):
         try:
-            return getattr(self, key)
+            return getattr(self, str(key))
         except AttributeError:
             raise KeyError(key)
 
@@ -126,26 +126,28 @@ class User(db_engine.Model, ModelBase, HasId):
 #-----------------
 #Character Classes
 #-----------------
-class CharacterDetail(db_engine.Model, ModelBase, HasId):
-    character_id = db_engine.Column(db_engine.ForeignKey("characters.id"),
-                                     nullable=False)
+class Character(db_engine.Model, ModelBase, HasId):
     alignment_id = db_engine.Column(db_engine.ForeignKey("alignments.id"),
-                                     nullable=False)
+                                     nullable=True)
     class_id = db_engine.Column(db_engine.ForeignKey("classes.id"),
-                                     nullable=False)
+                                     nullable=True)
     deity_id = db_engine.Column(db_engine.ForeignKey("deities.id"),
-                                     nullable=False)
+                                     nullable=True)
     home_world_id = db_engine.Column(db_engine.ForeignKey("worlds.id"),
-                                     nullable=False)
+                                     nullable=True)
     race_id = db_engine.Column(db_engine.ForeignKey("races.id"),
-                                     nullable=False)
+                                     nullable=True)
     size_id = db_engine.Column(db_engine.ForeignKey("sizes.id"),
-                                     nullable=False)
+                                     nullable=True)
     theme_id = db_engine.Column(db_engine.ForeignKey("themes.id"),
-                                     nullable=False)
-    level = db_engine.Column(db_engine.Integer(), nullable=False)
-    gender = db_engine.Column(db_engine.String(6), nullable=False)
-    description = db_engine.Column(db_engine.String(160), nullable=False)
+                                     nullable=True)
+    name = db_engine.Column(db_engine.String(16), nullable=True)
+    level = db_engine.Column(db_engine.Integer(), nullable=True)
+    gender = db_engine.Column(db_engine.String(6), nullable=True)
+    description = db_engine.Column(db_engine.String(160), nullable=True)
+    def __str__(self):
+        return self.name
+
 
 class CharacterEquipment(db_engine.Model, ModelBase, HasId):
     character_id = db_engine.Column(db_engine.ForeignKey("characters.id"),
@@ -381,11 +383,5 @@ class ThemeModifier(db_engine.Model, ModelBase, HasId):
                                      nullable=False)
     modifier_id = db_engine.Column(db_engine.ForeignKey("modifiers.id"),
                                      nullable=False)
-
-class Character(db_engine.Model, ModelBase, HasId):
-    name = db_engine.Column(db_engine.String(64), nullable=False)
-
-    def __str__(self):
-        return self.name
 
 db_engine.create_all()
