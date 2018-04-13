@@ -6,10 +6,11 @@ LOG = logging.get_logger(__name__)
 class Helper(object):
 
 	def update_character(self, form, char):
-		LOG.debug(char)
-		attributes = dict(char).keys
-		for key, value in attributes:
+		attributes = char.to_dict().keys()
+		LOG.debug(attributes)
+		for key in attributes:
 			if key in form:
-				setattr(char, key, getattr(form, key))
+				field = getattr(form, key)
+				setattr(char, key, field.data)
 		models.Session.add(char)
 		models.Session.commit()
