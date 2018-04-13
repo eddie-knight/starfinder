@@ -16,6 +16,11 @@ def race_options():
 			{'human','Human'},
 			{'kasatha', 'Kasatha'}]
 
+def theme_options():
+	return [{'Ace Pilot','Ace Pilot'},
+			{'Bounty Hunter','Bounty Hunter'},
+			{'Xenoseeker', 'Xenoseeker'}]
+
 class MyBaseForm(wtforms.Form):
 	class Meta:
 		csrf = True
@@ -40,4 +45,9 @@ class CharacterDeleteForm(MyBaseForm):
 class CharacterRaceForm(MyBaseForm):
 	id = wtforms.StringField("Character ID")
 	race = wtforms.SelectField('Select Race', choices=race_options())
+	submit = wtforms.SubmitField('Next')
+
+class CharacterThemeForm(MyBaseForm):
+	id = wtforms.StringField("Character ID")
+	theme = wtforms.SelectField('Select Theme', choices=theme_options())
 	submit = wtforms.SubmitField('Next')
