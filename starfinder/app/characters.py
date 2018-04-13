@@ -40,7 +40,7 @@ def update():
 	form = forms.CharacterRaceForm(request.form)
 	character = models.Character.get(form.id.data)
 	helper.update_character(form, character)
-	return redirect(url_for('characters.view_all', char_id=char.id))
+	return redirect(url_for('characters.view_all', char_id=character.id))
 
 
 @characters.route('/race_selection/<uuid:char_id>', methods=['GET', 'POST'])
