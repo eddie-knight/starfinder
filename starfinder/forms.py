@@ -16,10 +16,16 @@ def race_options():
 			{'human','Human'},
 			{'kasatha', 'Kasatha'}]
 
+
+themes = models.Theme.query.all()
+
 def theme_options():
 	return [{'Ace Pilot','Ace Pilot'},
 			{'Bounty Hunter','Bounty Hunter'},
-			{'Xenoseeker', 'Xenoseeker'}]
+			{'Xenoseeker', 'Xenoseeker'},
+			{'Outlaw','Outlaw'},
+			{'Priest', 'Priest'}]
+
 
 class MyBaseForm(wtforms.Form):
 	class Meta:
