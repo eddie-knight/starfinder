@@ -46,7 +46,7 @@ def race_selection(char_id):
 
 @characters.route('/theme_selection/<uuid:char_id>', methods=['GET', 'POST'])
 def theme_selection(char_id):
-	form = forms.CharacterRaceForm(request.form)
+	form = forms.CharacterThemeForm(request.form)
 	character = models.Character.get(char_id)
 	context = {
 		'form': form,
