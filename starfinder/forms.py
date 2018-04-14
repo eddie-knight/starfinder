@@ -57,15 +57,18 @@ class CharacterCreateForm(MyBaseForm):
 	submit = wtforms.SubmitField('Create Character')
 
 class CharacterDeleteForm(MyBaseForm):
-	id = wtforms.StringField("Character ID")
+	id = wtforms.StringField("")
 	submit = wtforms.SubmitField('Delete Character')
 
-class CharacterRaceForm(MyBaseForm):
-	id = wtforms.StringField("Character ID")
+class CharacterUpdateForm(MyBaseForm):
+	id = wtforms.StringField("")
+	alignment = wtforms.SelectField('Select Alignment', choices=alignment_options())
+	class = wtforms.SelectField('Select Class', choices=alignment_options())
+	deity = wtforms.SelectField('Select Deity', choices=alignment_options())
+	description = wtforms.StringField('Describe Character')
+	home_world = wtforms.SelectField('Select Home World', choices=alignment_options())
+	gender = wtforms.SelectField('Select Gender', choices=gender_options())
+	name = wtforms.StringField('Change Name')
 	race = wtforms.SelectField('Select Race', choices=race_options())
-	submit = wtforms.SubmitField('Next')
-
-class CharacterThemeForm(MyBaseForm):
-	id = wtforms.StringField("Character ID")
 	theme = wtforms.SelectField('Select Theme', choices=theme_options())
-	submit = wtforms.SubmitField('Next')
+	submit = wtforms.SubmitField('Save')

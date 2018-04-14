@@ -38,8 +38,7 @@ def create():
 
 @characters.route('/update_character', methods=['POST'])
 def update():
-	# TODO: Build a generalized form for this
-	form = forms.CharacterRaceForm(request.form)
+	form = forms.CharacterUpdateForm(request.form)
 	character = models.Character.get(form.id.data)
 	helper.update_character(form, character)
 	return redirect(url_for('characters.view_all', char_id=character.id))
