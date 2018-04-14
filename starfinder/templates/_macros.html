@@ -1,5 +1,5 @@
 {% macro render_character(char, form, form_target, class='', body='', height=0, min_height=0, actions='') %}
-	<div class="character-card btn btn-secondary">
+	<div class="character-card btn btn-primary">
 		{{ char.name }}
 		{{ char.race }}
 		<form method="post" action="{{ form_target }}" id="forgotPasswordForm">

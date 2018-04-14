@@ -13,16 +13,15 @@
 					        form_target=url_for('characters.delete')) }}
 	{% endfor %}
 </div>
-<button id="new-character" class="btn btn-success">(+) New Character</button>
-<form method="post" action="{{ url_for('characters.create') }}" id="forgotPasswordForm">
-    {{ creation_form.csrf_token(id=False) }}
-    <div class="form-group">
-        {{ creation_form.name }}
-    </div>
-    <div class="d-flex flex-column flex-lg-row align-items-center justify-content-between">
-        {{ creation_form.submit }}
-    </div>
-</form>
+<div id="new-character" class="character-card btn btn-success">
+    <form method="post" action="{{ url_for('characters.create') }}" id="forgotPasswordForm">
+        {{ creation_form.csrf_token(id=False) }}
+        <div class="form-group">
+            {{ creation_form.name }}
+        </div>
+            {{ creation_form.submit }}
+    </form>
+</div>
 {% endblock %}
 
 {% block scripts %}
