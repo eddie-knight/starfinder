@@ -38,6 +38,21 @@ def theme_options():
 			{'Outlaw','Outlaw'},
 			{'Priest', 'Priest'}]
 
+def alignment_options():
+	pass
+
+def class_options():
+	pass
+
+def deity_options():
+	pass
+
+def world_options():
+	pass
+
+def gender_options():
+	pass
+
 
 class MyBaseForm(wtforms.Form):
 	class Meta:
@@ -63,10 +78,10 @@ class CharacterDeleteForm(MyBaseForm):
 class CharacterUpdateForm(MyBaseForm):
 	id = wtforms.StringField("")
 	alignment = wtforms.SelectField('Select Alignment', choices=alignment_options())
-	class = wtforms.SelectField('Select Class', choices=alignment_options())
-	deity = wtforms.SelectField('Select Deity', choices=alignment_options())
+	class_type = wtforms.SelectField('Select Class', choices=class_options())
+	deity = wtforms.SelectField('Select Deity', choices=deity_options())
 	description = wtforms.StringField('Describe Character')
-	home_world = wtforms.SelectField('Select Home World', choices=alignment_options())
+	home_world = wtforms.SelectField('Select Home World', choices=world_options())
 	gender = wtforms.SelectField('Select Gender', choices=gender_options())
 	name = wtforms.StringField('Change Name')
 	race = wtforms.SelectField('Select Race', choices=race_options())
