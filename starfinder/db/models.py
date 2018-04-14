@@ -20,6 +20,7 @@ flask_app.config['SQLALCHEMY_DATABASE_URI'] = CONF.get('db.engine.url')
 db_engine = SQLAlchemy(flask_app)
 Session = db_engine.session
 
+
 class ModelBase(object):
     __table_args__ = TABLE_KWARGS
 
@@ -122,30 +123,32 @@ class User(db_engine.Model, ModelBase, HasId):
         return self.username
 
 
-
 #-----------------
 #Character Classes
 #-----------------
-class CharacterDetail(db_engine.Model, ModelBase, HasId):
-    character_id = db_engine.Column(db_engine.ForeignKey("characters.id"),
-                                     nullable=False)
+class Character(db_engine.Model, ModelBase, HasId):
     alignment_id = db_engine.Column(db_engine.ForeignKey("alignments.id"),
-                                     nullable=False)
+                                     nullable=True)
     class_id = db_engine.Column(db_engine.ForeignKey("classes.id"),
-                                     nullable=False)
+                                     nullable=True)
     deity_id = db_engine.Column(db_engine.ForeignKey("deities.id"),
-                                     nullable=False)
+                                     nullable=True)
     home_world_id = db_engine.Column(db_engine.ForeignKey("worlds.id"),
-                                     nullable=False)
+                                     nullable=True)
     race_id = db_engine.Column(db_engine.ForeignKey("races.id"),
-                                     nullable=False)
+                                     nullable=True)
     size_id = db_engine.Column(db_engine.ForeignKey("sizes.id"),
-                                     nullable=False)
+                                     nullable=True)
     theme_id = db_engine.Column(db_engine.ForeignKey("themes.id"),
-                                     nullable=False)
-    level = db_engine.Column(db_engine.Integer(), nullable=False)
-    gender = db_engine.Column(db_engine.String(6), nullable=False)
-    description = db_engine.Column(db_engine.String(160), nullable=False)
+                                     nullable=True)
+    name = db_engine.Column(db_engine.String(16), nullable=True)
+    level = db_engine.Column(db_engine.Integer(), nullable=True)
+    gender = db_engine.Column(db_engine.String(6), nullable=True)
+    description = db_engine.Column(db_engine.String(160), nullable=True)
+
+    def __str__(self):
+        return self.name
+
 
 class CharacterEquipment(db_engine.Model, ModelBase, HasId):
     character_id = db_engine.Column(db_engine.ForeignKey("characters.id"),
@@ -182,7 +185,6 @@ class CharacterSkill(db_engine.Model, ModelBase, HasId):
     sleight_of_hand = db_engine.Column(db_engine.Integer(), nullable=False, default=False)
     stealth = db_engine.Column(db_engine.Integer(), nullable=False, default=False)
     survival = db_engine.Column(db_engine.Integer(), nullable=False, default=False)
-
 
 
 # -----------------
@@ -233,6 +235,7 @@ class RangedWeapon(db_engine.Model, ModelBase, HasId):
     attributes = db_engine.Column(db_engine.JSON("ranged_weapons.attributes"),
                                      nullable=False)
 
+
 # ------------
 # Class Info Classes 
 # ------------
@@ -260,10 +263,6 @@ class ClassSpecialSkill(db_engine.Model, ModelBase, HasId):
     class_name = db_engine.Column(db_engine.String(64), nullable=False)
     special_name = db_engine.Column(db_engine.String(64), nullable=False)
     description = db_engine.Column(db_engine.String(64), nullable=False)
-
-
-
-
 
 
 # ------------
@@ -305,7 +304,8 @@ class NativeRace(db_engine.Model, ModelBase, HasId):
 # Race Classes
 # ------------
 
-class Race(db_engine.Model, ModelBase, HasId):
+class Race(db_engine.Model, ModelBase):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
     home_world_id = db_engine.Column(db_engine.ForeignKey("worlds.id"),
                                      nullable=False)
     size_id = db_engine.Column(db_engine.ForeignKey("sizes.id"),
@@ -363,7 +363,6 @@ class Modifier(db_engine.Model, ModelBase, HasId):
     modification = db_engine.Column(db_engine.Integer(), nullable=False)
 
 
-
 class TraitModifier(db_engine.Model, ModelBase, HasId):
     trait_id = db_engine.Column(db_engine.ForeignKey("racial_traits.id"),
                                      nullable=False)
@@ -382,10 +381,6 @@ class ThemeModifier(db_engine.Model, ModelBase, HasId):
     modifier_id = db_engine.Column(db_engine.ForeignKey("modifiers.id"),
                                      nullable=False)
 
-class Character(db_engine.Model, ModelBase, HasId):
-    name = db_engine.Column(db_engine.String(64), nullable=False)
 
-    def __str__(self):
-        return self.name
-
+# For maintenance and removal of database: db_engine.drop_all()
 db_engine.create_all()

@@ -12,9 +12,21 @@ LOG = logging.get_logger(__name__)
 races = models.Race.query.all()
 
 def race_options():
-	return [{'android','Android'},
-			{'human','Human'},
-			{'kasatha', 'Kasatha'}]
+	# These Left & Right values are occasionally inverting...?
+	return [{'1','Android'},
+			{'2','Human'},
+			{'3', 'Kasatha'}]
+
+
+themes = models.Theme.query.all()
+
+def theme_options():
+	return [{'Ace Pilot','Ace Pilot'},
+			{'Bounty Hunter','Bounty Hunter'},
+			{'Xenoseeker', 'Xenoseeker'},
+			{'Outlaw','Outlaw'},
+			{'Priest', 'Priest'}]
+
 
 
 themes = models.Theme.query.all()

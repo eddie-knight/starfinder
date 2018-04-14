@@ -1,13 +1,16 @@
-import flask
 import requests
+
+import flask
 from flask import url_for, render_template, request, redirect
 
 from starfinder import forms, config, logging
 from starfinder.db import models
+from starfinder.helpers import helper
 
 CONF = config.CONF
 LOG = logging.get_logger(__name__)
 
+helper = helper.Helper()
 characters = flask.Blueprint('characters', __name__, template_folder='templates')
 URL_PREFIX = '/characters'
 BLUEPRINT = characters
@@ -31,6 +34,15 @@ def create():
 	models.Session.add(char)
 	models.Session.commit()
 	return redirect(url_for('characters.race_selection', char_id=char.id))
+
+
+@characters.route('/update_character', methods=['POST'])
+def update():
+	# TODO: Build a generalized form for this
+	form = forms.CharacterRaceForm(request.form)
+	character = models.Character.get(form.id.data)
+	helper.update_character(form, character)
+	return redirect(url_for('characters.view_all', char_id=character.id))
 
 
 @characters.route('/race_selection/<uuid:char_id>', methods=['GET', 'POST'])
@@ -58,6 +70,7 @@ def theme_selection(char_id):
 @characters.route('/delete_character/', methods=['POST'])
 def delete():
 	form = forms.CharacterDeleteForm(request.form)
+	LOG.debug("Deleting Character by ID: %s", form.id.data)
 	char = models.Character.get(form.id.data)
 	models.Session.delete(char)	
 	models.Session.commit()
