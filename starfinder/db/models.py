@@ -137,8 +137,6 @@ class Character(db_engine.Model, ModelBase, HasId):
                                      nullable=True)
     race_id = db_engine.Column(db_engine.ForeignKey("races.id"),
                                      nullable=True)
-    size_id = db_engine.Column(db_engine.ForeignKey("sizes.id"),
-                                     nullable=True)
     theme_id = db_engine.Column(db_engine.ForeignKey("themes.id"),
                                      nullable=True)
     name = db_engine.Column(db_engine.String(16), nullable=True)
