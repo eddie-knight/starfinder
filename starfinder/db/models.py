@@ -306,8 +306,6 @@ class Race(db_engine.Model, ModelBase):
     id = db_engine.Column(db_engine.Integer(), primary_key=True)
     home_world_id = db_engine.Column(db_engine.ForeignKey("worlds.id"),
                                      nullable=False)
-    size_id = db_engine.Column(db_engine.ForeignKey("sizes.id"),
-                                     nullable=False)
     name = db_engine.Column(db_engine.String(64), nullable=False)
     avg_height = db_engine.Column(db_engine.String(64), nullable=False)
     avg_weight = db_engine.Column(db_engine.Integer(), nullable=False)
