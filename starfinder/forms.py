@@ -28,25 +28,30 @@ def theme_options():
 			{'Priest', 'Priest'}]
 
 
+
+themes = models.Theme.query.all()
+
+def theme_options():
+	return [{'Ace Pilot','Ace Pilot'},
+			{'Bounty Hunter','Bounty Hunter'},
+			{'Xenoseeker', 'Xenoseeker'},
+			{'Outlaw','Outlaw'},
+			{'Priest', 'Priest'}]
+
 def alignment_options():
-	return [{'a', 'a'},
-			{'b', 'b'}]
+	pass
 
 def class_options():
-	return [{'a', 'a'},
-			{'b', 'b'}]
+	pass
 
 def deity_options():
-	return [{'a', 'a'},
-			{'b', 'b'}]
+	pass
 
 def world_options():
-	return [{'a', 'a'},
-			{'b', 'b'}]
+	pass
 
 def gender_options():
-	return [{'a', 'a'},
-			{'b', 'b'}]
+	pass
 
 
 class MyBaseForm(wtforms.Form):
@@ -72,13 +77,13 @@ class CharacterDeleteForm(MyBaseForm):
 
 class CharacterUpdateForm(MyBaseForm):
 	id = wtforms.StringField("")
-	alignment_id = wtforms.SelectField('Select Alignment', choices=alignment_options())
-	class_id = wtforms.SelectField('Select Class', choices=class_options())
-	deity_id = wtforms.SelectField('Select Deity', choices=deity_options())
+	alignment = wtforms.SelectField('Select Alignment', choices=alignment_options())
+	class_type = wtforms.SelectField('Select Class', choices=class_options())
+	deity = wtforms.SelectField('Select Deity', choices=deity_options())
 	description = wtforms.StringField('Describe Character')
-	home_world_id = wtforms.SelectField('Select Home World', choices=world_options())
+	home_world = wtforms.SelectField('Select Home World', choices=world_options())
 	gender = wtforms.SelectField('Select Gender', choices=gender_options())
 	name = wtforms.StringField('Change Name')
-	race_id = wtforms.SelectField('Select Race', choices=race_options())
-	theme_id = wtforms.SelectField('Select Theme', choices=theme_options())
+	race = wtforms.SelectField('Select Race', choices=race_options())
+	theme = wtforms.SelectField('Select Theme', choices=theme_options())
 	submit = wtforms.SubmitField('Save')

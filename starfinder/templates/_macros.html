@@ -1,7 +1,7 @@
 {% macro render_character(char, form, form_target, class='', body='', height=0, min_height=0, actions='') %}
 	<div class="character-card btn btn-primary">
-		{{ char.name }}<br>
-		<a href="{{ url_for('characters.race_selection', char_id=char.id) }}">Race: {{ char.race }}</a>
+		{{ char.name }}
+		{{ char.race }}
 		<form method="post" action="{{ form_target }}" id="forgotPasswordForm">
 		    {{ form.csrf_token(id=False) }}
 		    <div hidden>

@@ -1,31 +1,29 @@
-{% extends 'layouts/builder.html' %}
+{% extends 'layouts/general.html' %}
 
 {% block title %}Race Selection{% endblock %}
 
 {% block body %}
-    <h1>Race Selection</h1>
-    <h3>{{ character.name }}</h3>
-    <h3>{{ character.race }}</h3>
-    <p>This form currently supports single-race characters. Please select your race below!</p>
-    <form method="post" action="{{ url_for('characters.update', char_id=character.id) }}" id="characterRaceForm">
-        {{ form.csrf_token(id=False) }}
-        <div hidden>
-            {{ form.id(value=character.id) }}
-            {{ form.name(value=character.name) }}
-        </div>
-        <div class="form-group">
-        	{{ form.race_id.label }}
-            <select name="race_id">
-    	        {% for field in form.race_id %}
-    	        	{{ field }}
-    	        {% endfor %}
-        	</select>
-        </div>
-        <div class="d-flex flex-column flex-lg-row align-items-center justify-content-between">
-            {{ form.submit }}
-        </div>
-    </form>
-    {{ super() }}
+<h1>Race Selection</h1>
+<h3>{{ character.name }}</h3>
+<h3>{{ character.race }}</h3>
+<p>This form currently supports single-race characters. Please select your race below!</p>
+<form method="post" action="{{ url_for('characters.update', char_id=character.id) }}" id="characterRaceForm">
+    {{ form.csrf_token(id=False) }}
+    <div hidden>
+        {{ form.id(value=character.id) }}
+    </div>
+    <div class="form-group">
+    	{{ form.race.label }}
+        <select name="race">
+	        {% for field in form.race %}
+	        	{{ field }}
+	        {% endfor %}
+    	</select>
+    </div>
+    <div class="d-flex flex-column flex-lg-row align-items-center justify-content-between">
+        {{ form.submit }}
+    </div>
+</form>
 {% endblock %}
 
 {% block scripts %}
