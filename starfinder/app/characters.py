@@ -31,27 +31,22 @@ def view_all():
 def create():
 	form = forms.CharacterCreateForm(request.form)
 	char = models.Character(name=form.name.data)
-	LOG.debug(form.name.data)
-	LOG.debug(char.name)
 	models.Session.add(char)
 	models.Session.commit()
-	return redirect(url_for('characters.view_all', char_id=char.id))
+	return redirect(url_for('characters.race_selection', char_id=char.id))
 
 
 @characters.route('/update_character', methods=['POST'])
 def update():
 	form = forms.CharacterUpdateForm(request.form)
 	character = models.Character.get(form.id.data)
-	LOG.debug("Updating Character by ID: %s", character.id)
-	for field in form:
-		LOG.debug("Updating Field %s with value: %s", field.name, field.data)
 	helper.update_character(form, character)
 	return redirect(url_for('characters.view_all', char_id=character.id))
 
 
 @characters.route('/race_selection/<uuid:char_id>', methods=['GET', 'POST'])
 def race_selection(char_id):
-	form = forms.CharacterUpdateForm(request.form)
+	form = forms.CharacterRaceForm(request.form)
 	character = models.Character.get(char_id)
 	context = {
 		'form': form,
@@ -62,7 +57,7 @@ def race_selection(char_id):
 
 @characters.route('/theme_selection/<uuid:char_id>', methods=['GET', 'POST'])
 def theme_selection(char_id):
-	form = forms.CharacterUpdateForm(request.form)
+	form = forms.CharacterThemeForm(request.form)
 	character = models.Character.get(char_id)
 	context = {
 		'form': form,
