@@ -50,7 +50,9 @@ def race_selection(char_id):
 	character = models.Character.get(char_id)
 	context = {
 		'form': form,
-		'character': character
+		'character': character,
+		'next': 'characters.theme_selection',
+		'previous': 'characters.view_all'
 	}
 	return render_template('characters/builder/race.html', **context)
 
@@ -61,7 +63,10 @@ def theme_selection(char_id):
 	character = models.Character.get(char_id)
 	context = {
 		'form': form,
-		'character': character
+		'character': character,
+		'next': 'characters.view_all',
+		'previous': 'characters.race_selection'
+
 	}
 	return render_template('characters/builder/theme.html', **context)
 

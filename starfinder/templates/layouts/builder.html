@@ -1,0 +1,32 @@
+{% extends 'layouts/general.html' %}
+
+{% block title %}{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+{% endblock %}
+
+{% block body %}
+	<h1 id="builder-title">Character Builder</h1>
+	<h2 id="builder-subtitle">{% block h2 %}{% endblock %}</h2>
+	<p class="builder-description">{% block description %}{% endblock %}</p>
+	<form method="post" action="{{ url_for('characters.update', char_id=character.id) }}" id="characterRaceForm">
+        {{ form.csrf_token(id=False) }}
+        <div hidden>
+        	{% block hidden %}{% endblock %}
+        </div>
+        </hidden>
+        {% block form_fields %}{% endblock %}
+    </form>
+    <div class="row">
+	    <div>Previous</div><!-- previous button -->
+	    <div class="d-flex flex-column flex-lg-row align-items-center justify-content-between">
+	        {{ form.submit }}
+	    </div>
+	    <div>Next</div><!-- next button -->
+	</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}
