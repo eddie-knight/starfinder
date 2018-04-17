@@ -21,11 +21,11 @@ def race_options():
 themes = models.Theme.query.all()
 
 def theme_options():
-	return [{'Ace Pilot','Ace Pilot'},
-			{'Bounty Hunter','Bounty Hunter'},
-			{'Xenoseeker', 'Xenoseeker'},
-			{'Outlaw','Outlaw'},
-			{'Priest', 'Priest'}]
+	return [{'Ace Pilot','Ace Pilot', 'three'},
+			{'Bounty Hunter','Bounty Hunter', 'three'},
+			{'Xenoseeker', 'Xenoseeker', 'three'},
+			{'Outlaw','Outlaw', 'three'},
+			{'Priest', 'Priest', 'three'}]
 
 
 def alignment_options():
