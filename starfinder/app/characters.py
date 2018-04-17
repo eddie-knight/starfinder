@@ -33,7 +33,7 @@ def create():
 	char = models.Character(name=form.name.data)
 	models.Session.add(char)
 	models.Session.commit()
-	return redirect(url_for('characters.race_selection', char_id=char.id))
+	return redirect(url_for('characters.view_all', char_id=char.id))
 
 
 @characters.route('/update_character', methods=['POST'])
@@ -71,7 +71,7 @@ def theme_selection(char_id):
 	return render_template('characters/builder/theme.html', **context)
 
 
-@characters.route('/theme_selection/<uuid:char_id>', methods=['GET'])
+@characters.route('/class_selection/<uuid:char_id>', methods=['GET'])
 def class_selection(char_id):
 	form = forms.CharacterUpdateForm(request.form)
 	character = models.Character.get(char_id)
@@ -81,7 +81,7 @@ def class_selection(char_id):
 		'next':'/ability_scores/',
 		'previous':'/theme_selection/'
 	}
-	return render_template('characters/builder/abilities.html', **context)
+	return render_template('characters/builder/class.html', **context)
 
 
 @characters.route('/delete_character/', methods=['POST'])
