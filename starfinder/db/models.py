@@ -134,24 +134,52 @@ class Equipment(db_engine.Model, ModelBase, HasId):
     character_equipment = orm.relationship('CharacterEquipment', backref='equipment')
 
 
-# class Ammunition(db_engine.Model, ModelBase, HasId):
-#     attributes = db_engine.Column(db_engine.JSON("ammunitions.attributes"),
-#                                      nullable=False)
+class Ammunition(db_engine.Model, ModelBase, HasId):
+    name = db_engine.Column(db_engine.String(832), nullable=False)
+    level = db_engine.Column(db_engine.Integer(), nullable=False)
+    price = db_engine.Column(db_engine.Integer(), nullable=False)
+    charges_cartridge = db_engine.Column(db_engine.Integer(), nullable=False)
+    bulk = db_engine.Column(db_engine.String(64), nullable=True)
+    special = db_engine.Column(db_engine.String(64), nullable=True)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
 
 
-# class Armor(db_engine.Model, ModelBase, HasId):
-#     attributes = db_engine.Column(db_engine.JSON("armors.attributes"),
-#                                      nullable=False)
+class Armor(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
+    name = db_engine.Column(db_engine.String(832), nullable=False)
+    type_armor = db_engine.Column(db_engine.Boolean(), nullable=False)
+    level = db_engine.Column(db_engine.Integer(), nullable=False)
+    price = db_engine.Column(db_engine.Integer(), nullable=False)
+    eac = db_engine.Column(db_engine.Integer(), nullable=False)
+    kac = db_engine.Column(db_engine.Integer(), nullable=False)
+    max_dx = db_engine.Column(db_engine.Integer(), nullable=False)
+    ac_penalty = db_engine.Column(db_engine.Integer(), nullable=False)
+    speed_adjustment = db_engine.Column(db_engine.Integer(), nullable=False)
+    upgrade_slots = db_engine.Column(db_engine.Integer(), nullable=False)
+    bulk = db_engine.Column(db_engine.String(832), nullable=False)
+    description = db_engine.Column(db_engine.String(832), nullable=False)
+    
 
 
-# class ArmorUpgrade(db_engine.Model, ModelBase, HasId):
-#     attributes = db_engine.Column(db_engine.JSON("armor_upgrades.attributes"),
-#                                      nullable=False)
+class ArmorUpgrade(db_engine.Model, ModelBase, HasId):
+    name = db_engine.Column(db_engine.String(832), nullable=False)
+    level = db_engine.Column(db_engine.Integer(), nullable=False)
+    price = db_engine.Column(db_engine.Integer(), nullable=False)
+    slots = db_engine.Column(db_engine.Integer(), nullable=False)
+    armor_type = db_engine.Column(db_engine.String(832), nullable=False)
+    bulk = db_engine.Column(db_engine.String(832), nullable=True)
+    description = db_engine.Column(db_engine.String(832), nullable=False)
 
 
-# class Augmentation(db_engine.Model, ModelBase, HasId):
-#     attributes = db_engine.Column(db_engine.JSON("augmentations.attributes"),
-#                                      nullable=False)
+class Augmentation(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
+    name = db_engine.Column(db_engine.String(832), nullable=False)
+    system = db_engine.Column(db_engine.String(832), nullable=False)
+    model = db_engine.Column(db_engine.String(832), nullable=True)
+    level = db_engine.Column(db_engine.Integer(), nullable=False)
+    price = db_engine.Column(db_engine.Integer(), nullable=True)
+    biotech = db_engine.Column(db_engine.Boolean(), nullable=False)
+
 
 
 # class Computer(db_engine.Model, ModelBase, HasId):
@@ -164,24 +192,92 @@ class Equipment(db_engine.Model, ModelBase, HasId):
 #                                      nullable=False)
 
 
-# class Fusion(db_engine.Model, ModelBase, HasId):
-#     attributes = db_engine.Column(db_engine.JSON("fusions.attributes"),
-#                                      nullable=False)
+class Fusion(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    level = db_engine.Column(db_engine.Integer(), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
+
+class TechItem(db_engine.Model, ModelBase, HasId):
+    item_type = db_engine.Column(db_engine.String(64), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    level = db_engine.Column(db_engine.Integer(), nullable=False)
+    price = db_engine.Column(db_engine.Integer(), nullable=False)
+    hands = db_engine.Column(db_engine.Integer(), nullable=True)
+    bulk = db_engine.Column(db_engine.Integer(), nullable=True)
+    capacity = db_engine.Column(db_engine.Integer(), nullable=True)
+    usage = db_engine.Column(db_engine.String(64), nullable=True)
 
 
-# class Grenade(db_engine.Model, ModelBase, HasId):
-#     attributes = db_engine.Column(db_engine.JSON("grenades.attributes"),
-#                                      nullable=False)
+class PersonalUpgrade(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    level = db_engine.Column(db_engine.Integer(), nullable=False)
+    price = db_engine.Column(db_engine.Integer(), nullable=False)
+    boost = db_engine.Column(db_engine.Integer(), nullable=False)
 
 
-# class MeleeWeapon(db_engine.Model, ModelBase, HasId):
-#     attributes = db_engine.Column(db_engine.JSON("melee_weapons.attributes"),
-#                                      nullable=False)
+class Grenade(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    level = db_engine.Column(db_engine.Integer(), nullable=False)
+    price = db_engine.Column(db_engine.Integer(), nullable=False)
+    range_grenade = db_engine.Column(db_engine.String(64), nullable=False)
+    capacity = db_engine.Column(db_engine.String(64), nullable=False)
+    bulk = db_engine.Column(db_engine.String(64), nullable=False)
+    special = db_engine.Column(db_engine.String(64), nullable=False)
 
 
-# class RangedWeapon(db_engine.Model, ModelBase, HasId):
-#     attributes = db_engine.Column(db_engine.JSON("ranged_weapons.attributes"),
-#                                      nullable=False)
+class MeleeWeapon(db_engine.Model, ModelBase, HasId):
+    category = db_engine.Column(db_engine.Integer(), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    level = db_engine.Column(db_engine.Integer(), nullable=True)
+    price = db_engine.Column(db_engine.Integer(), nullable=True)
+    damage = db_engine.Column(db_engine.String(64), nullable=False)
+    critical = db_engine.Column(db_engine.String(64), nullable=True)
+    bulk = db_engine.Column(db_engine.String(64), nullable=True)
+    special = db_engine.Column(db_engine.String(64), nullable=False)
+    powered = db_engine.Column(db_engine.Binary(), nullable=False)
+    operative = db_engine.Column(db_engine.Binary(), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
+    
+
+class WeaponCategory(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
+    type_wep = db_engine.Column(db_engine.String(64), nullable=False)
+    hands = db_engine.Column(db_engine.Integer(), nullable=False)
+    category = db_engine.Column(db_engine.String(64), nullable=False)
+
+class SolarianCrystal(db_engine.Model, ModelBase, HasId):
+    level = db_engine.Column(db_engine.Integer(), nullable=False)
+    price = db_engine.Column(db_engine.Integer(), nullable=False)
+    damage = db_engine.Column(db_engine.String(64), nullable=False)
+    critical = db_engine.Column(db_engine.String(64), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
+
+
+class OtherEquipment(db_engine.Model, ModelBase, HasId):
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    weapon_type = db_engine.Column(db_engine.String(64), nullable=False)
+    price = db_engine.Column(db_engine.Integer(), nullable=False)
+    bulk = db_engine.Column(db_engine.String(64), nullable=False)
+    level = db_engine.Column(db_engine.Integer(), nullable=True)
+
+
+class RangedWeapon(db_engine.Model, ModelBase, HasId):
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    category = db_engine.Column(db_engine.Integer(), nullable=False)
+    level = db_engine.Column(db_engine.Integer(), nullable=False)
+    price = db_engine.Column(db_engine.Integer(), nullable=False)
+    damage = db_engine.Column(db_engine.String(64), nullable=False)
+    attack_rangesss = db_engine.Column(db_engine.String(64), nullable=False)
+    critical = db_engine.Column(db_engine.String(64), nullable=False)
+    capacity = db_engine.Column(db_engine.String(64), nullable=False)
+    usage = db_engine.Column(db_engine.Integer(), nullable=False)
+    bulk = db_engine.Column(db_engine.String(64), nullable=False)
+    special = db_engine.Column(db_engine.String(64), nullable=True)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
+
 
 
 # ------------
@@ -189,6 +285,7 @@ class Equipment(db_engine.Model, ModelBase, HasId):
 # ------------
 
 class Class(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
     name = db_engine.Column(db_engine.String(64), nullable=False)
     description = db_engine.Column(db_engine.String(832), nullable=False)
     hit_points = db_engine.Column(db_engine.Integer(), nullable=False)
@@ -196,12 +293,18 @@ class Class(db_engine.Model, ModelBase, HasId):
     key_ability_score = db_engine.Column(db_engine.Integer(), nullable=False)
     key_ability_score_text = db_engine.Column(db_engine.String(64), nullable=False)
     skills_per_level = db_engine.Column(db_engine.Integer(), nullable=False)
+    special_skill_name = db_engine.Column(db_engine.String(64), nullable=True)
+    special_skill_description = db_engine.Column(db_engine.String(64), nullable=True)
 
     character = orm.relationship('Character', backref='class')
     special_skills = orm.relationship('ClassSpecialSkill', backref='class')
+    class_proficiencies = orm.relationship('ClassProficiency', backref='class')
+    class_feats = orm.relationship('ClassFeat', backref='class')
+    operative_skills = orm.relationship('OperativeSkill', backref='class')
 
 
 class Theme(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
     name = db_engine.Column(db_engine.String(64), nullable=False)
     description = db_engine.Column(db_engine.String(64), nullable=False)
     level_1 = db_engine.Column(db_engine.String(64), nullable=False)
@@ -211,13 +314,81 @@ class Theme(db_engine.Model, ModelBase, HasId):
 
     character = orm.relationship('Character', backref='theme')
     theme_modifiers = orm.relationship('ThemeModifier', backref='theme')
+    class_modifiers = orm.relationship('ClassModifier', backref='theme')
 
 
 class ClassSpecialSkill(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
     class_id = db_engine.Column(db_engine.ForeignKey("classes.id"),
                                      nullable=False)
-    class_name = db_engine.Column(db_engine.String(64), nullable=False)
-    special_name = db_engine.Column(db_engine.String(64), nullable=False)
+    feat_id = db_engine.Column(db_engine.ForeignKey("feats.id"),
+                                     nullable=True)
+    parent_id = db_engine.Column(db_engine.Integer(), nullable=True)
+    level = db_engine.Column(db_engine.Integer(), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
+
+
+class ClassProficiency(db_engine.Model, ModelBase, HasId):
+    class_id = db_engine.Column(db_engine.ForeignKey("classes.id"),
+                                     nullable=False)
+    feats_id = db_engine.Column(db_engine.ForeignKey("worlds.id"),
+                                     nullable=False)
+
+
+class ClassModifier(db_engine.Model, ModelBase, HasId):
+    theme_id = db_engine.Column(db_engine.ForeignKey("themes.id"),
+                                     nullable=False)
+    modifier_id = db_engine.Column(db_engine.ForeignKey("modifiers.id"),
+                                     nullable=False)
+
+
+class Skill(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    ability_id = db_engine.Column(db_engine.ForeignKey("abilities.id"),
+                                     nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
+    trained_only = db_engine.Column(db_engine.Binary(), nullable=False)
+    ac_penalty = db_engine.Column(db_engine.Integer(), nullable=False)
+
+    mystic_skills = orm.relationship('MysticSkill', backref='skill')
+
+
+class Ability(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    shorthand = db_engine.Column(db_engine.String(64), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
+
+    skill = orm.relationship('Skill', backref='theme')
+
+
+class ClassFeat(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
+    class_id = db_engine.Column(db_engine.ForeignKey("classes.id"),
+                                     nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    level = db_engine.Column(db_engine.Integer(), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
+
+
+class MysticSkill(db_engine.Model, ModelBase, HasId):
+    feat_id = db_engine.Column(db_engine.ForeignKey("classes.id"),
+                                     nullable=False)
+    skill_id = db_engine.Column(db_engine.ForeignKey("classes.id"),
+                                     nullable=False)
+    level = db_engine.Column(db_engine.Integer(), nullable=False)
+
+
+class OperativeSkill(db_engine.Model, ModelBase, HasId):
+    class_id = db_engine.Column(db_engine.ForeignKey("classes.id"),
+                                     nullable=False)
+    feat_id = db_engine.Column(db_engine.ForeignKey("classes.id"),
+                                     nullable=False)
+    parent_id = db_engine.Column(db_engine.Integer(), nullable=False)
+    level = db_engine.Column(db_engine.Integer(), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
     description = db_engine.Column(db_engine.String(64), nullable=False)
 
 
@@ -226,6 +397,7 @@ class ClassSpecialSkill(db_engine.Model, ModelBase, HasId):
 # ------------
 
 class Alignment(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
     name = db_engine.Column(db_engine.String(64), nullable=False)
     shorthand = db_engine.Column(db_engine.String(64), nullable=False)
     description = db_engine.Column(db_engine.String(64), nullable=False)
@@ -234,8 +406,8 @@ class Alignment(db_engine.Model, ModelBase, HasId):
 
 
 class Size(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
     name = db_engine.Column(db_engine.String(64), nullable=False)
-    description = db_engine.Column(db_engine.String(64), nullable=False)
     height_or_length = db_engine.Column(db_engine.String(64), nullable=False)
     weight = db_engine.Column(db_engine.String(64), nullable=False)
     space = db_engine.Column(db_engine.String(64), nullable=False)
@@ -244,31 +416,55 @@ class Size(db_engine.Model, ModelBase, HasId):
 
 
 class Deity(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
     name = db_engine.Column(db_engine.String(64), nullable=False)
+    nickname = db_engine.Column(db_engine.String(64), nullable=False)
     alignment_id = db_engine.Column(db_engine.ForeignKey("alignments.id"),
                                      nullable=False)
     description = db_engine.Column(db_engine.String(64), nullable=False)
+    gender = db_engine.Column(db_engine.String(64), nullable=False)
+    represents = db_engine.Column(db_engine.String(64), nullable=False)
+    symbol = db_engine.Column(db_engine.String(64), nullable=False)
 
     character = orm.relationship('Character', backref='deity')
     places_of_worship = orm.relationship('PlacesOfWorship', backref='deity')
+    mystic_deities = orm.relationship('MysticDeity', backref='deity')
 
 
-class World(db_engine.Model, ModelBase, HasId):
-    name = db_engine.Column(db_engine.String(64), nullable=False)
-    description = db_engine.Column(db_engine.String(64), nullable=False)
-
-    character = orm.relationship('Character', backref='world')
-    native_races = orm.relationship('NativeRace', backref='world')
-
-
-class PlacesOfWorship(db_engine.Model, ModelBase, HasId):
-    world_id = db_engine.Column(db_engine.ForeignKey("worlds.id"),
-                                     nullable=False)
+class MysticDeity(db_engine.Model, ModelBase, HasId):
+    mystic_connection = db_engine.Column(db_engine.String(64), nullable=False)
     deity_id = db_engine.Column(db_engine.ForeignKey("deities.id"),
                                      nullable=False)
 
 
+class World(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    nickname = db_engine.Column(db_engine.String(64), nullable=False)
+    diameter = db_engine.Column(db_engine.String(64), nullable=False)
+    mass = db_engine.Column(db_engine.String(64), nullable=False)
+    gravity = db_engine.Column(db_engine.String(64), nullable=False)
+    atmosphere = db_engine.Column(db_engine.String(64), nullable=False)
+    day = db_engine.Column(db_engine.String(64), nullable=False)
+    year = db_engine.Column(db_engine.String(64), nullable=False)
+    location = db_engine.Column(db_engine.String(64), nullable=False)
+    full_text = db_engine.Column(db_engine.String(64), nullable=False)
+
+    character = orm.relationship('Character', backref='world')
+    native_races = orm.relationship('NativeRace', backref='world')
+    languages = orm.relationship('Language', backref='world')
+    places_of_worship = orm.relationship('PlacesOfWorship', backref='world')
+
+
+class PlacesOfWorship(db_engine.Model, ModelBase, HasId):
+    deity_id = db_engine.Column(db_engine.ForeignKey("deities.id"),
+                                     nullable=False)
+    world_id = db_engine.Column(db_engine.ForeignKey("worlds.id"),
+                                     nullable=False)
+
+
 class Range(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
     name = db_engine.Column(db_engine.String(64), nullable=False)
     description = db_engine.Column(db_engine.String(64), nullable=False)
 
@@ -276,10 +472,30 @@ class Range(db_engine.Model, ModelBase, HasId):
 
 
 class Descriptor(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=Truessss)
+
+    spells = orm.relationship('SpellDescriptor', backref='descriptor')
+
+
+class Language(db_engine.Model, ModelBase, HasId):
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    world_id = db_engine.Column(db_engine.ForeignKey("worlds.id"),
+                                     nullable=True)
+    race_id = db_engine.Column(db_engine.ForeignKey("races.id"),
+                                     nullable=True)
+    other = db_engine.Column(db_engine.String(64), nullable=True)
+
+
+class MagicSchool(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
     name = db_engine.Column(db_engine.String(64), nullable=False)
     description = db_engine.Column(db_engine.String(64), nullable=False)
 
-    spells = orm.relationship('SpellDescriptor', backref='descriptor')
+    spells = orm.relationship('Spell', backref='magic_school')
+
+
 
 # ------------
 # Race Classes
@@ -295,25 +511,27 @@ class Race(db_engine.Model, ModelBase):
     description = db_engine.Column(db_engine.String(64), nullable=False)
     hit_points = db_engine.Column(db_engine.Integer(), nullable=False)
     race_type = db_engine.Column(db_engine.String(64), nullable=False)
-    physical_description = db_engine.Column(db_engine.String(64), nullable=False)
-    homeworld = db_engine.Column(db_engine.String(64), nullable=False)
-    society_and_alignment = db_engine.Column(db_engine.String(64), nullable=False)
-    relations = db_engine.Column(db_engine.String(64), nullable=False)
-    adventurers = db_engine.Column(db_engine.String(64), nullable=False)
-    names = db_engine.Column(db_engine.String(64), nullable=False)
+    physical_description = db_engine.Column(db_engine.String(64), nullable=True)
+    homeworld = db_engine.Column(db_engine.String(64), nullable=True)
+    society_and_alignment = db_engine.Column(db_engine.String(64), nullable=True)
+    relations = db_engine.Column(db_engine.String(64), nullable=True)
+    adventurers = db_engine.Column(db_engine.String(64), nullable=True)
+    names = db_engine.Column(db_engine.String(64), nullable=True)
 
     characters = orm.relationship('Character', backref='race')
     native_races = orm.relationship('NativeRace', backref='race')
     racial_traits = orm.relationship('RacialTrait', backref='race')
+    languages = orm.relationship('Language', backref='race')
 
 
 class RacialTrait(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
     race_id = db_engine.Column(db_engine.ForeignKey("races.id"),
                                      nullable=False)
     name = db_engine.Column(db_engine.String(64), nullable=False)
-    description = db_engine.Column(db_engine.String(64), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=True)
 
-    trait_modifiers = orm.relationship('TraitModifier', backref='racial_trait')
+    racial_trait_modifiers = orm.relationship('RacialTraitModifier', backref='racial_trait')
     associated_feat = orm.relationship('RaceAssociatedFeat', backref='racial_trait')
 
 
@@ -329,36 +547,48 @@ class NativeRace(db_engine.Model, ModelBase, HasId):
 # --------------------
 
 class Feat(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
     modifier_id = db_engine.Column(db_engine.ForeignKey("modifier.id"),
-                                     nullable=False)
-    prereq_text = db_engine.Column(db_engine.String(64), nullable=False)
+                                     nullable=True)
     name = db_engine.Column(db_engine.String(64), nullable=False)
+    tagline = db_engine.Column(db_engine.String(64), nullable=False)
+    prereq_text = db_engine.Column(db_engine.String(64), nullable=False)
     description = db_engine.Column(db_engine.String(64), nullable=False)
+    benefit = db_engine.Column(db_engine.String(64), nullable=False)
+    extra_text = db_engine.Column(db_engine.String(64), nullable=False)
+    combat_feat = db_engine.Column(db_engine.Boolean(), nullable=False)
 
     character_feats = orm.relationship('CharacterFeat', backref='feat')
     feat_modifiers = orm.relationship('FeatModifier', backref='feat')
     race_associated = orm.relationship('RaceAssociatedFeat', backref='feat')
+    class_proficiencies = orm.relationship('ClassProficiency', backref='feat')
+    special_skills = orm.relationship('ClassSpecialSkill', backref='feat')
+    mystic_skills = orm.relationship('MysticSkill', backref='feat')
+    operative_skills = orm.relationship('OperativeSkill', backref='feat')
+    feat_options = orm.relationship('FeatOption', backref='feat')
 
 
 class Spell(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
     school_id = db_engine.Column(db_engine.ForeignKey("themes.id"),
                                      nullable=False)
     range_id = db_engine.Column(db_engine.ForeignKey("themes.id"),
                                      nullable=False)
     name = db_engine.Column(db_engine.String(64), nullable=False)
-    description = db_engine.Column(db_engine.String(64), nullable=False)
-    mystic_level = db_engine.Column(db_engine.Integer(), nullable=False)
-    technomancer_level = db_engine.Column(db_engine.Integer(), nullable=False)
-    short_description = db_engine.Column(db_engine.String(64), nullable=False)
+    short_description = db_engine.Column(db_engine.String(64), nullable=True)
     long_description = db_engine.Column(db_engine.String(64), nullable=False)
+    mystic_level = db_engine.Column(db_engine.Integer(), nullable=True)
+    technomancer_level = db_engine.Column(db_engine.Integer(), nullable=True)
     casting_time = db_engine.Column(db_engine.String(64), nullable=False)
-    area = db_engine.Column(db_engine.String(64), nullable=False)
-    targets duration = db_engine.Column(db_engine.String(64), nullable=False)
-    saving_throw = db_engine.Column(db_engine.String(64), nullable=False)
+    area = db_engine.Column(db_engine.String(64), nullable=True)
+    targets = db_engine.Column(db_engine.String(64), nullable=False)
+    duration = db_engine.Column(db_engine.String(64), nullable=False)
+    saving_throw = db_engine.Column(db_engine.String(64), nullable=True)
     spell_resistance = db_engine.Column(db_engine.Boolean(), 
                                         nullable=False, default=False)
 
     descriptor = orm.relationship('SpellDescriptor', backref='spell')
+    character_spells = orm.relationship('CharacterSpell', backref='spell')
 
 
 class SpellDescriptor(db_engine.Model, ModelBase, HasId):
@@ -381,25 +611,39 @@ class RaceAssociatedFeat(db_engine.Model, ModelBase, HasId):
     feat_id = db_engine.Column(db_engine.ForeignKey("feats.id"),
                                      nullable=False)
 
+class FeatOption(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
+    feat_id = db_engine.Column(db_engine.ForeignKey("feats.id"),
+                                     nullable=False)
+    parent_id = db_engine.Column(db_engine.Integer(), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
+    level = db_engine.Column(db_engine.Integer(), nullable=False)
+    description = db_engine.Column(db_engine.String(64), nullable=False)
+
 
 # ----------------
 # Modifier Classes
 # ----------------
 
 class Modifier(db_engine.Model, ModelBase, HasId):
+    id = db_engine.Column(db_engine.Integer(), primary_key=True)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
     effected_stat = db_engine.Column(db_engine.String(64), nullable=False)
-    modification = db_engine.Column(db_engine.Integer(), nullable=False)
+    modification = db_engine.Column(db_engine.Integer(), nullable=True)
+    description = db_engine.Column(db_engine.String(64), nullable=True)
 
     themes = orm.relationship('ThemeModifier', backref='modifier')
-    traits = orm.relationship('TraitModifier', backref='modifier')
+    racial_traits = orm.relationship('RacialTraitModifier', backref='modifier')
     feats = orm.relationship('Feat', backref='modifier')
+    class_modifiers = orm.relationship('ClassModifier', backref='modifier')
 
 
-class TraitModifier(db_engine.Model, ModelBase, HasId):
+class RacialTraitModifier(db_engine.Model, ModelBase, HasId):
     trait_id = db_engine.Column(db_engine.ForeignKey("racial_traits.id"),
                                      nullable=False)
     modifier_id = db_engine.Column(db_engine.ForeignKey("modifiers.id"),
                                      nullable=False)
+
 
 class ThemeModifier(db_engine.Model, ModelBase, HasId):
     theme_id = db_engine.Column(db_engine.ForeignKey("themes.id"),
@@ -439,6 +683,7 @@ class Character(db_engine.Model, ModelBase, HasId):
     character_skills = orm.relationship('CharacterSkill', backref='character')
     character_feats = orm.relationship('CharacterFeat', backref='character')
     character_equipment = orm.relationship('CharacterEquipment', backref='character')
+    character_spells = orm.relationship('CharacterSpell', backref='character')
 
 
     def __str__(self):
@@ -448,14 +693,21 @@ class Character(db_engine.Model, ModelBase, HasId):
 class CharacterEquipment(db_engine.Model, ModelBase, HasId):
     character_id = db_engine.Column(db_engine.ForeignKey("characters.id"),
                                      nullable=False)
-    attributes = db_engine.Column(db_engine.JSON("equipments.attributes"),
+    equipment_id = db_engine.Column(db_engine.ForeignKey("equipments.id"),
                                      nullable=False)
+    in_bag = db_engine.Column(db_engine.Boolean(), nullable=False)
 
 
 class CharacterFeat(db_engine.Model, ModelBase, HasId):
     character_id = db_engine.Column(db_engine.ForeignKey("characters.id"),
                                      nullable=False)
     feat_id = db_engine.Column(db_engine.ForeignKey("feats.id"),
+                                     nullable=False)
+
+class CharacterSpell(db_engine.Model, ModelBase, HasId):
+    character_id = db_engine.Column(db_engine.ForeignKey("characters.id"),
+                                     nullable=False)
+    spell_id = db_engine.Column(db_engine.ForeignKey("spells.id"),
                                      nullable=False)
 
 
