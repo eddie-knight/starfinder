@@ -44,9 +44,9 @@ def update():
 	return redirect(url_for('characters.view_all', char_id=character.id))
 
 
-@characters.route('/race_selection/<uuid:char_id>', methods=['GET', 'POST'])
+@characters.route('/race_selection/<uuid:char_id>', methods=['GET'])
 def race_selection(char_id):
-	form = forms.CharacterRaceForm(request.form)
+	form = forms.CharacterUpdateForm(request.form)
 	character = models.Character.get(char_id)
 	context = {
 		'form': form,
@@ -57,9 +57,9 @@ def race_selection(char_id):
 	return render_template('characters/builder/race.html', **context)
 
 
-@characters.route('/theme_selection/<uuid:char_id>', methods=['GET', 'POST'])
+@characters.route('/theme_selection/<uuid:char_id>', methods=['GET'])
 def theme_selection(char_id):
-	form = forms.CharacterThemeForm(request.form)
+	form = forms.CharacterUpdateForm(request.form)
 	character = models.Character.get(char_id)
 	context = {
 		'form': form,
@@ -69,6 +69,19 @@ def theme_selection(char_id):
 
 	}
 	return render_template('characters/builder/theme.html', **context)
+
+
+@characters.route('/theme_selection/<uuid:char_id>', methods=['GET'])
+def class_selection(char_id):
+	form = forms.CharacterUpdateForm(request.form)
+	character = models.Character.get(char_id)
+	context = {
+		'form': form,
+		'character': character,
+		'next':'/ability_scores/',
+		'previous':'/theme_selection/'
+	}
+	return render_template('characters/builder/abilities.html', **context)
 
 
 @characters.route('/delete_character/', methods=['POST'])
