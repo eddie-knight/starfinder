@@ -128,7 +128,6 @@ class User(db_engine.Model, ModelBase, HasId):
 # -----------------
 
 class Equipment(db_engine.Model, ModelBase, HasId):
-    id = db_engine.Column(db_engine.Integer(), primary_key=True)
     attributes = db_engine.Column(db_engine.JSON("equipments.attributes"),
                                      nullable=False)
 
@@ -200,7 +199,7 @@ class Fusion(db_engine.Model, ModelBase, HasId):
     description = db_engine.Column(db_engine.String(64), nullable=False)
 
 class TechItem(db_engine.Model, ModelBase, HasId):
-    type_tech_item = db_engine.Column(db_engine.String(64), nullable=False)
+    item_type = db_engine.Column(db_engine.String(64), nullable=False)
     name = db_engine.Column(db_engine.String(64), nullable=False)
     level = db_engine.Column(db_engine.Integer(), nullable=False)
     price = db_engine.Column(db_engine.Integer(), nullable=False)
@@ -271,7 +270,7 @@ class RangedWeapon(db_engine.Model, ModelBase, HasId):
     level = db_engine.Column(db_engine.Integer(), nullable=False)
     price = db_engine.Column(db_engine.Integer(), nullable=False)
     damage = db_engine.Column(db_engine.String(64), nullable=False)
-    range_atk = db_engine.Column(db_engine.String(64), nullable=False)
+    attack_rangesss = db_engine.Column(db_engine.String(64), nullable=False)
     critical = db_engine.Column(db_engine.String(64), nullable=False)
     capacity = db_engine.Column(db_engine.String(64), nullable=False)
     usage = db_engine.Column(db_engine.Integer(), nullable=False)
@@ -620,7 +619,6 @@ class FeatOption(db_engine.Model, ModelBase, HasId):
     name = db_engine.Column(db_engine.String(64), nullable=False)
     level = db_engine.Column(db_engine.Integer(), nullable=False)
     description = db_engine.Column(db_engine.String(64), nullable=False)
-
 
 
 # ----------------
