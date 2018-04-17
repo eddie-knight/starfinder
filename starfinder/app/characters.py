@@ -84,6 +84,19 @@ def class_selection(char_id):
 	return render_template('characters/builder/class.html', **context)
 
 
+@characters.route('/class_selection/<uuid:char_id>', methods=['GET'])
+def ability_allocation(char_id):
+	form = forms.CharacterUpdateForm(request.form)
+	character = models.Character.get(char_id)
+	context = {
+		'form': form,
+		'character': character,
+		'next':'/class_options/',
+		'previous':'/class_selection/'
+	}
+	return render_template('characters/builder/abilities.html', **context)
+
+
 @characters.route('/delete_character/', methods=['POST'])
 def delete():
 	form = forms.CharacterDeleteForm(request.form)
