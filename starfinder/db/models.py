@@ -259,7 +259,7 @@ class SolarianCrystal(db_engine.Model, ModelBase, HasId):
 
 class OtherEquipment(db_engine.Model, ModelBase, HasId):
     name = db_engine.Column(db_engine.String(64), nullable=False)
-    type_wep = db_engine.Column(db_engine.String(64), nullable=False)
+    weapon_type = db_engine.Column(db_engine.String(64), nullable=False)
     price = db_engine.Column(db_engine.Integer(), nullable=False)
     bulk = db_engine.Column(db_engine.String(64), nullable=False)
     level = db_engine.Column(db_engine.Integer(), nullable=True)
@@ -529,7 +529,7 @@ class RacialTrait(db_engine.Model, ModelBase, HasId):
     id = db_engine.Column(db_engine.Integer(), primary_key=True)
     race_id = db_engine.Column(db_engine.ForeignKey("races.id"),
                                      nullable=False)
-    trait = db_engine.Column(db_engine.String(64), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
     description = db_engine.Column(db_engine.String(64), nullable=True)
 
     racial_trait_modifiers = orm.relationship('RacialTraitModifier', backref='racial_trait')
