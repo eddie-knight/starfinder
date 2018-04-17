@@ -64,7 +64,7 @@ def theme_selection(char_id):
 	context = {
 		'form': form,
 		'character': character,
-		'next': 'characters.view_all',
+		'next': 'characters.class_selection',
 		'previous': 'characters.race_selection'
 
 	}

@@ -1,0 +1,29 @@
+{% extends 'layouts/builder.html' %}
+
+{% block title %}Theme Selection{% endblock %}
+
+{% block h2 %}Theme Selection{% endblock %}
+
+{% block description %}
+    Select your theme!
+{% endblock %}
+
+{% block hidden %}
+        {{ form.id(value=character.id) }}
+        {{ form.name(value=character.name) }}
+{% endblock %}
+
+{% block form_fields %}
+    <div class="form-group">
+    	{{ form.theme_id.label }}
+        <select name="theme_id">
+	        {% for field in form.theme_id %}
+	        	{{ field }}
+	        {% endfor %}
+    	</select>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}
