@@ -130,6 +130,16 @@ def deity_selection(char_id):
 	}
 	return render_template('characters/builder/deity.html', **context)
 
+@characters.route('/summary/<uuid:char_id>', methods=['GET'])
+def summary(char_id):
+	character = models.Character.get(char_id)
+	context = {
+		'character': character,
+		'next': 'characters.view_all',
+		'previous': 'characters.deity_selection'
+	}
+	return render_template('characters/builder/deity.html', **context)
+
 
 @characters.route('/class_selection/<uuid:char_id>', methods=['GET'])
 def class_selection(char_id):
