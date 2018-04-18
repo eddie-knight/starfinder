@@ -1,0 +1,29 @@
+{% extends 'layouts/builder.html' %}
+
+{% block title %}Alignment Selection{% endblock %}
+
+{% block h2 %}Alignment Selection{% endblock %}
+
+{% block description %}
+    Select your Alignment!
+{% endblock %}
+
+{% block hidden %}
+        {{ form.id(value=character.id) }}
+        {{ form.name(value=character.name) }}
+{% endblock %}
+
+{% block form_fields %}
+    <div class="form-group">
+    	{{ form.alignment_id.label }}
+        <select name="alignment_id">
+	        {% for field in form.alignment_id %}
+	        	{{ field }}
+	        {% endfor %}
+    	</select>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}
