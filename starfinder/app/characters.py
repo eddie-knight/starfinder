@@ -81,7 +81,21 @@ def class_option_selection(char_id):
 		'previous': 'characters.ability_allocation'
 
 	}
-	return render_template('characters/builder/theme.html', **context)
+	return render_template('characters/builder/class_options.html', **context)
+
+
+@characters.route('/skills_allocation/<uuid:char_id>', methods=['GET'])
+def skills_allocation(char_id):
+	form = forms.CharacterSkillsForm(request.form)
+	character = models.Character.get(char_id)
+	context = {
+		'form': form,
+		'character': character,
+		'next': 'characters.view_all',
+		'previous': 'characters.class_option_selection'
+
+	}
+	return render_template('characters/builder/skills.html', **context)
 
 @characters.route('/class_selection/<uuid:char_id>', methods=['GET'])
 def class_selection(char_id):
@@ -103,7 +117,7 @@ def ability_allocation(char_id):
 	context = {
 		'form': form,
 		'character': character,
-		'next':'characters.class_option_selection',
+		'next':'characters.skills_allocation',
 		'previous':'characters.class_selection'
 	}
 	return render_template('characters/builder/abilities.html', **context)

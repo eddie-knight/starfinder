@@ -1,0 +1,27 @@
+{% extends 'layouts/builder.html' %}
+
+{% block title %}Skill Allocation{% endblock %}
+
+{% block h2 %}Skill Allocation{% endblock %}
+
+{% block description %}
+    Select your skills!
+{% endblock %}
+
+{% block hidden %}
+        {{ form.id(value=character.id) }}
+{% endblock %}
+
+{% block form_fields %}
+    {% for field in form %}
+        {% if field.type == "IntegerField" %}
+            <div class="form-group">
+                {{ field.label }} : {{ field }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}
