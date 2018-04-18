@@ -66,9 +66,84 @@ def theme_selection(char_id):
 		'character': character,
 		'next': 'characters.class_selection',
 		'previous': 'characters.race_selection'
-
 	}
 	return render_template('characters/builder/theme.html', **context)
+
+
+@characters.route('/class_options/<uuid:char_id>', methods=['GET'])
+def class_option_selection(char_id):
+	#form = forms.CharacterUpdateForm(request.form)
+	character = models.Character.get(char_id)
+	context = {
+		'form': form,
+		'character': character,
+		'next': 'characters.skills_allocation',
+		'previous': 'characters.ability_allocation'
+	}
+	return render_template('characters/builder/class_options.html', **context)
+
+
+@characters.route('/skills_allocation/<uuid:char_id>', methods=['GET'])
+def skills_allocation(char_id):
+	form = forms.CharacterSkillsForm(request.form)
+	character = models.Character.get(char_id)
+	context = {
+		'form': form,
+		'character': character,
+		'next': 'characters.feat_selection',
+		'previous': 'characters.class_option_selection'
+	}
+	return render_template('characters/builder/skills.html', **context)
+
+
+@characters.route('/feat_selection/<uuid:char_id>', methods=['GET'])
+def feat_selection(char_id):
+	#form = forms.CharacterSkillsForm(request.form)
+	character = models.Character.get(char_id)
+	context = {
+		'form': form,
+		'character': character,
+		'next': 'characters.alignment_selection',
+		'previous': 'characters.skills_allocation'
+	}
+	return render_template('characters/builder/feats.html', **context)
+
+
+@characters.route('/alignment_selection/<uuid:char_id>', methods=['GET'])
+def alignment_selection(char_id):
+	form = forms.CharacterUpdateForm(request.form)
+	character = models.Character.get(char_id)
+	context = {
+		'form': form,
+		'character': character,
+		'next': 'characters.deity_selection',
+		'previous': 'characters.feat_selection'
+	}
+	return render_template('characters/builder/alignment.html', **context)
+
+
+@characters.route('/deity_selection/<uuid:char_id>', methods=['GET'])
+def deity_selection(char_id):
+	form = forms.CharacterUpdateForm(request.form)
+	character = models.Character.get(char_id)
+	context = {
+		'form': form,
+		'character': character,
+		'next': 'characters.summary',
+		'previous': 'characters.alignment_selection'
+	}
+	return render_template('characters/builder/deity.html', **context)
+	
+
+@characters.route('/summary/<uuid:char_id>', methods=['GET'])
+def summary(char_id):
+	character = models.Character.get(char_id)
+	context = {
+		'character': character,
+		'next': 'characters.view_all',
+		'previous': 'characters.deity_selection'
+	}
+	return render_template('characters/builder/summary.html', **context)
 
 
 @characters.route('/class_selection/<uuid:char_id>', methods=['GET'])
@@ -78,21 +153,21 @@ def class_selection(char_id):
 	context = {
 		'form': form,
 		'character': character,
-		'next':'/ability_scores/',
-		'previous':'/theme_selection/'
+		'next':'characters.ability_allocation',
+		'previous':'characters.theme_selection'
 	}
 	return render_template('characters/builder/class.html', **context)
 
 
-@characters.route('/class_selection/<uuid:char_id>', methods=['GET'])
+@characters.route('/ability_allocation/<uuid:char_id>', methods=['GET'])
 def ability_allocation(char_id):
 	form = forms.CharacterUpdateForm(request.form)
 	character = models.Character.get(char_id)
 	context = {
 		'form': form,
 		'character': character,
-		'next':'/class_options/',
-		'previous':'/class_selection/'
+		'next':'characters.skills_allocation',
+		'previous':'characters.class_selection'
 	}
 	return render_template('characters/builder/abilities.html', **context)
 
