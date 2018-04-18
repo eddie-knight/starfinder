@@ -77,8 +77,21 @@ def class_option_selection(char_id):
 	context = {
 		'form': form,
 		'character': character,
-		'next': 'characters.skills_allocation',
+		'next': 'characters.spells_selection',
 		'previous': 'characters.ability_allocation'
+	}
+	return render_template('characters/builder/class_options.html', **context)
+
+
+@characters.route('/spells_selection/<uuid:char_id>', methods=['GET'])
+def spells_selection(char_id):
+	form = forms.CharacterSpellsForm(request.form)
+	character = models.Character.get(char_id)
+	context = {
+		'form': form,
+		'character': character,
+		'next': 'characters.skills_allocation',
+		'previous': 'characters.option_selection'
 	}
 	return render_template('characters/builder/class_options.html', **context)
 
@@ -91,14 +104,14 @@ def skills_allocation(char_id):
 		'form': form,
 		'character': character,
 		'next': 'characters.feat_selection',
-		'previous': 'characters.class_option_selection'
+		'previous': 'characters.spells_selection'
 	}
 	return render_template('characters/builder/skills.html', **context)
 
 
 @characters.route('/feat_selection/<uuid:char_id>', methods=['GET'])
 def feat_selection(char_id):
-	#form = forms.CharacterSkillsForm(request.form)
+	form = forms.CharacterFeatsForm(request.form)
 	character = models.Character.get(char_id)
 	context = {
 		'form': form,
