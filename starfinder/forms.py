@@ -13,47 +13,47 @@ races = models.Race.query.all()
 
 def race_options():
 	# These Left & Right values are occasionally inverting...?
-	return [{'1','Android'},
-			{'2','Human'},
-			{'3', 'Kasatha'}]
+	return [('1','Android'),
+			('2','Human'),
+			('3', 'Kasatha')]
 
 
 themes = models.Theme.query.all()
 
 def theme_options():
-	return [{'Ace Pilot','Ace Pilot', 'three'},
-			{'Bounty Hunter','Bounty Hunter', 'three'},
-			{'Xenoseeker', 'Xenoseeker', 'three'},
-			{'Outlaw','Outlaw', 'three'},
-			{'Priest', 'Priest', 'three'}]
+	return [('Ace Pilot','Ace Pilot', 'three'),
+			('Bounty Hunter','Bounty Hunter', 'three'),
+			('Xenoseeker', 'Xenoseeker', 'three'),
+			('Outlaw','Outlaw', 'three'),
+			('Priest', 'Priest', 'three')]
 
 
 def alignment_options():
-	return [{'a', 'a'},
-			{'b', 'b'},
-			{'c', 'c'}]
+	return [('a', 'a'),
+			('b', 'b'),
+			('c', 'c')]
 
 classes = models.Class.query.all()
 
 def class_options():
-	return [{'a', 'a', 'three'},
-			{'b', 'b', 'three'},
-			{'c', 'c', 'three'}]
+	return [('a', 'a', 'three'),
+			('b', 'b', 'three'),
+			('c', 'c', 'three')]
 
 def deity_options():
-	return [{'a', 'a'},
-			{'b', 'b'},
-			{'c', 'c'}]
+	return [('a', 'a'),
+			('b', 'b'),
+			('c', 'c')]
 
 def world_options():
-	return [{'a', 'a'},
-			{'b', 'b'},
-			{'c', 'c'}]
+	return [('a', 'a'),
+			('b', 'b'),
+			('c', 'c')]
 
 def gender_options():
-	return [{'a', 'a'},
-			{'b', 'b'},
-			{'c', 'c'}]
+	return [('a', 'a'),
+			('b', 'b'),
+			('c', 'c')]
 
 
 class MyBaseForm(wtforms.Form):
