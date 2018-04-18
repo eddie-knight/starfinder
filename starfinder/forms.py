@@ -68,14 +68,17 @@ class MyBaseForm(wtforms.Form):
 		def csrf_context(self):
 			return session
 
+
 class CharacterCreateForm(MyBaseForm):
 	name = wtforms.StringField(
 		"Character Name", [wtforms.validators.DataRequired()])
 	submit = wtforms.SubmitField('Create Character')
 
+
 class CharacterDeleteForm(MyBaseForm):
 	id = wtforms.StringField("")
 	submit = wtforms.SubmitField('Delete Character')
+
 
 class CharacterUpdateForm(MyBaseForm):
 	id = wtforms.StringField("")
@@ -95,6 +98,7 @@ class CharacterUpdateForm(MyBaseForm):
 	wisdom = wtforms.IntegerField('Wisdom')
 	charisma = wtforms.IntegerField('Charisma')
 	submit = wtforms.SubmitField('Save')
+
 
 class CharacterSkillsForm(MyBaseForm):
 	id = wtforms.StringField("")

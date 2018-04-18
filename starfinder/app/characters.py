@@ -69,6 +69,7 @@ def theme_selection(char_id):
 	}
 	return render_template('characters/builder/theme.html', **context)
 
+
 @characters.route('/class_options/<uuid:char_id>', methods=['GET'])
 def class_option_selection(char_id):
 	#form = forms.CharacterUpdateForm(request.form)
@@ -94,6 +95,7 @@ def skills_allocation(char_id):
 	}
 	return render_template('characters/builder/skills.html', **context)
 
+
 @characters.route('/feat_selection/<uuid:char_id>', methods=['GET'])
 def feat_selection(char_id):
 	#form = forms.CharacterSkillsForm(request.form)
@@ -105,6 +107,7 @@ def feat_selection(char_id):
 		'previous': 'characters.skills_allocation'
 	}
 	return render_template('characters/builder/feats.html', **context)
+
 
 @characters.route('/alignment_selection/<uuid:char_id>', methods=['GET'])
 def alignment_selection(char_id):
@@ -118,6 +121,7 @@ def alignment_selection(char_id):
 	}
 	return render_template('characters/builder/alignment.html', **context)
 
+
 @characters.route('/deity_selection/<uuid:char_id>', methods=['GET'])
 def deity_selection(char_id):
 	form = forms.CharacterUpdateForm(request.form)
@@ -129,6 +133,7 @@ def deity_selection(char_id):
 		'previous': 'characters.alignment_selection'
 	}
 	return render_template('characters/builder/deity.html', **context)
+	
 
 @characters.route('/summary/<uuid:char_id>', methods=['GET'])
 def summary(char_id):
@@ -138,7 +143,7 @@ def summary(char_id):
 		'next': 'characters.view_all',
 		'previous': 'characters.deity_selection'
 	}
-	return render_template('characters/builder/deity.html', **context)
+	return render_template('characters/builder/summary.html', **context)
 
 
 @characters.route('/class_selection/<uuid:char_id>', methods=['GET'])
