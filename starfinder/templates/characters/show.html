@@ -4,24 +4,24 @@
 {% block title %}Characters{% endblock %}
 
 {% block body %}
-<h1>Characters</h1>
-<p>Your characters are listed below. Click on a character to modify it, or click "Add New Character" to open the character builder with a blank new sheet.</p>
-<div id="character-cards" class="row justify-content-around align-content-around">
-	{% for char in characters %}
-		{{ render_character(char=char,
-					        form=deletion_form,
-					        form_target=url_for('characters.delete')) }}
-	{% endfor %}
-</div>
-<div id="new-character" class="character-card btn btn-success">
-    <form method="post" action="{{ url_for('characters.create') }}" id="forgotPasswordForm">
-        {{ creation_form.csrf_token(id=False) }}
-        <div class="form-group">
-            {{ creation_form.name }}
-        </div>
-            {{ creation_form.submit }}
-    </form>
-</div>
+    <h1>Characters</h1>
+    <p>Your characters are listed below. Click on a character to modify it, or click "Add New Character" to open the character builder with a blank new sheet.</p>
+    <div id="character-cards" class="row justify-content-around align-content-around">
+    	{% for char in characters %}
+    		{{ render_character(char=char,
+    					        form=deletion_form,
+    					        form_target=url_for('characters.delete')) }}
+    	{% endfor %}
+    </div>
+    <div id="new-character" class="character-card btn btn-success">
+        <form method="post" action="{{ url_for('characters.create') }}" id="forgotPasswordForm">
+            {{ creation_form.csrf_token(id=False) }}
+            <div class="form-group">
+                {{ creation_form.name }}
+            </div>
+                {{ creation_form.submit }}
+        </form>
+    </div>
 {% endblock %}
 
 {% block scripts %}
