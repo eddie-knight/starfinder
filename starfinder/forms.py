@@ -55,6 +55,21 @@ def gender_options():
 			('b', 'b'),
 			('c', 'c')]
 
+def character_options():
+	return [('a', 'a'),
+			('b', 'b'),
+			('c', 'c')]
+
+def spell_options():
+	return [('a', 'a'),
+			('b', 'b'),
+			('c', 'c')]
+
+def feat_options():
+	return [('a', 'a'),
+			('b', 'b'),
+			('c', 'c')]
+
 
 class MyBaseForm(wtforms.Form):
 	class Meta:
@@ -98,6 +113,18 @@ class CharacterUpdateForm(MyBaseForm):
 	wisdom = wtforms.IntegerField('Wisdom')
 	charisma = wtforms.IntegerField('Charisma')
 	submit = wtforms.SubmitField('Save')
+
+
+class CharacterFeatsForm(MyBaseForm):
+	id = wtforms.StringField("")
+	character_id = wtforms.SelectField('Select Character', choices=character_options())
+	feat_id = wtforms.SelectField('Select Feat', choices=feat_options())
+
+
+class CharacterSpellsForm(MyBaseForm):
+	id = wtforms.StringField("")
+	character_id = wtforms.SelectField('Select Character', choices=character_options())
+	spell_id = wtforms.SelectField('Select Spell', choices=spell_options())
 
 
 class CharacterSkillsForm(MyBaseForm):
