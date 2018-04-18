@@ -113,10 +113,22 @@ def alignment_selection(char_id):
 	context = {
 		'form': form,
 		'character': character,
-		'next': 'characters.diety_selection',
+		'next': 'characters.deity_selection',
 		'previous': 'characters.feat_selection'
 	}
 	return render_template('characters/builder/alignment.html', **context)
+
+@characters.route('/deity_selection/<uuid:char_id>', methods=['GET'])
+def deity_selection(char_id):
+	form = forms.CharacterUpdateForm(request.form)
+	character = models.Character.get(char_id)
+	context = {
+		'form': form,
+		'character': character,
+		'next': 'characters.summary',
+		'previous': 'characters.alignment_selection'
+	}
+	return render_template('characters/builder/deity.html', **context)
 
 
 @characters.route('/class_selection/<uuid:char_id>', methods=['GET'])
