@@ -21,11 +21,11 @@ def race_options():
 themes = models.Theme.query.all()
 
 def theme_options():
-	return [('Ace Pilot','Ace Pilot', 'three'),
-			('Bounty Hunter','Bounty Hunter', 'three'),
-			('Xenoseeker', 'Xenoseeker', 'three'),
-			('Outlaw','Outlaw', 'three'),
-			('Priest', 'Priest', 'three')]
+	return [('Ace Pilot','Ace Pilot'),
+			('Bounty Hunter','Bounty Hunter'),
+			('Xenoseeker', 'Xenoseeker'),
+			('Outlaw','Outlaw'),
+			('Priest', 'Priest')]
 
 
 def alignment_options():
@@ -33,37 +33,44 @@ def alignment_options():
 			('b', 'b'),
 			('c', 'c')]
 
+
 classes = models.Class.query.all()
 
 def class_options():
-	return [('a', 'a', 'three'),
-			('b', 'b', 'three'),
-			('c', 'c', 'three')]
+	return [('a', 'a'),
+			('b', 'b'),
+			('c', 'c')]
+
 
 def deity_options():
 	return [('a', 'a'),
 			('b', 'b'),
 			('c', 'c')]
 
+
 def world_options():
 	return [('a', 'a'),
 			('b', 'b'),
 			('c', 'c')]
+
 
 def gender_options():
 	return [('a', 'a'),
 			('b', 'b'),
 			('c', 'c')]
 
+
 def character_options():
 	return [('a', 'a'),
 			('b', 'b'),
 			('c', 'c')]
 
+
 def spell_options():
 	return [('a', 'a'),
 			('b', 'b'),
 			('c', 'c')]
+
 
 def feat_options():
 	return [('a', 'a'),

@@ -15,6 +15,7 @@ characters = flask.Blueprint('characters', __name__, template_folder='templates'
 URL_PREFIX = '/characters'
 BLUEPRINT = characters
 
+
 @characters.route('/')
 def view_all():
 	characters = models.Character.query.all()
@@ -68,6 +69,32 @@ def theme_selection(char_id):
 		'previous': 'characters.race_selection'
 	}
 	return render_template('characters/builder/theme.html', **context)
+
+
+@characters.route('/class_selection/<uuid:char_id>', methods=['GET'])
+def class_selection(char_id):
+	form = forms.CharacterUpdateForm(request.form)
+	character = models.Character.get(char_id)
+	context = {
+		'form': form,
+		'character': character,
+		'next':'characters.ability_allocation',
+		'previous':'characters.theme_selection'
+	}
+	return render_template('characters/builder/class.html', **context)
+
+
+@characters.route('/ability_allocation/<uuid:char_id>', methods=['GET'])
+def ability_allocation(char_id):
+	form = forms.CharacterUpdateForm(request.form)
+	character = models.Character.get(char_id)
+	context = {
+		'form': form,
+		'character': character,
+		'next':'characters.class_options',
+		'previous':'characters.class_selection'
+	}
+	return render_template('characters/builder/abilities.html', **context)
 
 
 @characters.route('/class_options/<uuid:char_id>', methods=['GET'])
@@ -157,32 +184,6 @@ def summary(char_id):
 		'previous': 'characters.deity_selection'
 	}
 	return render_template('characters/builder/summary.html', **context)
-
-
-@characters.route('/class_selection/<uuid:char_id>', methods=['GET'])
-def class_selection(char_id):
-	form = forms.CharacterUpdateForm(request.form)
-	character = models.Character.get(char_id)
-	context = {
-		'form': form,
-		'character': character,
-		'next':'characters.ability_allocation',
-		'previous':'characters.theme_selection'
-	}
-	return render_template('characters/builder/class.html', **context)
-
-
-@characters.route('/ability_allocation/<uuid:char_id>', methods=['GET'])
-def ability_allocation(char_id):
-	form = forms.CharacterUpdateForm(request.form)
-	character = models.Character.get(char_id)
-	context = {
-		'form': form,
-		'character': character,
-		'next':'characters.skills_allocation',
-		'previous':'characters.class_selection'
-	}
-	return render_template('characters/builder/abilities.html', **context)
 
 
 @characters.route('/delete_character/', methods=['POST'])
