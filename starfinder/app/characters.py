@@ -66,7 +66,6 @@ def theme_selection(char_id):
 		'character': character,
 		'next': 'characters.class_selection',
 		'previous': 'characters.race_selection'
-
 	}
 	return render_template('characters/builder/theme.html', **context)
 
@@ -79,7 +78,6 @@ def class_option_selection(char_id):
 		'character': character,
 		'next': 'characters.skills_allocation',
 		'previous': 'characters.ability_allocation'
-
 	}
 	return render_template('characters/builder/class_options.html', **context)
 
@@ -93,9 +91,21 @@ def skills_allocation(char_id):
 		'character': character,
 		'next': 'characters.view_all',
 		'previous': 'characters.class_option_selection'
-
 	}
 	return render_template('characters/builder/skills.html', **context)
+
+@characters.route('/feat_selection/<uuid:char_id>', methods=['GET'])
+def feat_selection(char_id):
+	form = forms.CharacterSkillsForm(request.form)
+	character = models.Character.get(char_id)
+	context = {
+		'form': form,
+		'character': character,
+		'next': 'characters.alignment_selection',
+		'previous': 'characters.skills_allocation'
+	}
+	return render_template('characters/builder/skills.html', **context)
+
 
 @characters.route('/class_selection/<uuid:char_id>', methods=['GET'])
 def class_selection(char_id):
