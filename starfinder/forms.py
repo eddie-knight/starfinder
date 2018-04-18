@@ -33,6 +33,8 @@ def alignment_options():
 			{'b', 'b'},
 			{'c', 'c'}]
 
+classes = models.Class.query.all()
+
 def class_options():
 	return [{'a', 'a', 'three'},
 			{'b', 'b', 'three'},
@@ -84,7 +86,6 @@ class CharacterUpdateForm(MyBaseForm):
 	home_world_id = wtforms.SelectField('Select Home World', choices=world_options())
 	gender = wtforms.SelectField('Select Gender', choices=gender_options())
 	name = wtforms.StringField('Change Name')
-	race_id = wtforms.SelectField('Select Race', choices=race_options())
 	theme_id = wtforms.SelectField('Select Theme', choices=theme_options())
 	strength = wtforms.IntegerField('Strength')
 	dexterity = wtforms.IntegerField('Dexterity')
