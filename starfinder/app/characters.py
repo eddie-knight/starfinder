@@ -15,6 +15,7 @@ characters = flask.Blueprint('characters', __name__, template_folder='templates'
 URL_PREFIX = '/characters'
 BLUEPRINT = characters
 
+
 @characters.route('/')
 def view_all():
 	characters = models.Character.query.all()
@@ -70,6 +71,32 @@ def theme_selection(char_id):
 	return render_template('characters/builder/theme.html', **context)
 
 
+@characters.route('/class_selection/<uuid:char_id>', methods=['GET'])
+def class_selection(char_id):
+	form = forms.CharacterUpdateForm(request.form)
+	character = models.Character.get(char_id)
+	context = {
+		'form': form,
+		'character': character,
+		'next':'characters.ability_allocation',
+		'previous':'characters.theme_selection'
+	}
+	return render_template('characters/builder/class.html', **context)
+
+
+@characters.route('/ability_allocation/<uuid:char_id>', methods=['GET'])
+def ability_allocation(char_id):
+	form = forms.CharacterUpdateForm(request.form)
+	character = models.Character.get(char_id)
+	context = {
+		'form': form,
+		'character': character,
+		'next':'characters.class_options',
+		'previous':'characters.class_selection'
+	}
+	return render_template('characters/builder/abilities.html', **context)
+
+
 @characters.route('/class_options/<uuid:char_id>', methods=['GET'])
 def class_option_selection(char_id):
 	#form = forms.CharacterUpdateForm(request.form)
@@ -77,8 +104,21 @@ def class_option_selection(char_id):
 	context = {
 		'form': form,
 		'character': character,
-		'next': 'characters.skills_allocation',
+		'next': 'characters.spells_selection',
 		'previous': 'characters.ability_allocation'
+	}
+	return render_template('characters/builder/class_options.html', **context)
+
+
+@characters.route('/spells_selection/<uuid:char_id>', methods=['GET'])
+def spells_selection(char_id):
+	form = forms.CharacterSpellsForm(request.form)
+	character = models.Character.get(char_id)
+	context = {
+		'form': form,
+		'character': character,
+		'next': 'characters.skills_allocation',
+		'previous': 'characters.option_selection'
 	}
 	return render_template('characters/builder/class_options.html', **context)
 
@@ -91,14 +131,14 @@ def skills_allocation(char_id):
 		'form': form,
 		'character': character,
 		'next': 'characters.feat_selection',
-		'previous': 'characters.class_option_selection'
+		'previous': 'characters.spells_selection'
 	}
 	return render_template('characters/builder/skills.html', **context)
 
 
 @characters.route('/feat_selection/<uuid:char_id>', methods=['GET'])
 def feat_selection(char_id):
-	#form = forms.CharacterSkillsForm(request.form)
+	form = forms.CharacterFeatsForm(request.form)
 	character = models.Character.get(char_id)
 	context = {
 		'form': form,
@@ -144,32 +184,6 @@ def summary(char_id):
 		'previous': 'characters.deity_selection'
 	}
 	return render_template('characters/builder/summary.html', **context)
-
-
-@characters.route('/class_selection/<uuid:char_id>', methods=['GET'])
-def class_selection(char_id):
-	form = forms.CharacterUpdateForm(request.form)
-	character = models.Character.get(char_id)
-	context = {
-		'form': form,
-		'character': character,
-		'next':'characters.ability_allocation',
-		'previous':'characters.theme_selection'
-	}
-	return render_template('characters/builder/class.html', **context)
-
-
-@characters.route('/ability_allocation/<uuid:char_id>', methods=['GET'])
-def ability_allocation(char_id):
-	form = forms.CharacterUpdateForm(request.form)
-	character = models.Character.get(char_id)
-	context = {
-		'form': form,
-		'character': character,
-		'next':'characters.skills_allocation',
-		'previous':'characters.class_selection'
-	}
-	return render_template('characters/builder/abilities.html', **context)
 
 
 @characters.route('/delete_character/', methods=['POST'])

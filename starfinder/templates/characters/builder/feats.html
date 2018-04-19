@@ -5,17 +5,21 @@
 {% block h2 %}Feat Selection{% endblock %}
 
 {% block description %}
-    Select your Feats!
+    Select your feat!
 {% endblock %}
 
 {% block hidden %}
         {{ form.id(value=character.id) }}
-        {{ form.name(value=character.name) }}
 {% endblock %}
 
 {% block form_fields %}
     <div class="form-group">
-        <!-- WIP -->
+    	{{ form.feat_id.label }}
+        <select name="feat_id">
+	        {% for field in form.feat_id %}
+	        	{{ field }}
+	        {% endfor %}
+    	</select>
     </div>
 {% endblock %}
 

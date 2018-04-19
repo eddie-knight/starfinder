@@ -21,11 +21,11 @@ def race_options():
 themes = models.Theme.query.all()
 
 def theme_options():
-	return [('Ace Pilot','Ace Pilot', 'three'),
-			('Bounty Hunter','Bounty Hunter', 'three'),
-			('Xenoseeker', 'Xenoseeker', 'three'),
-			('Outlaw','Outlaw', 'three'),
-			('Priest', 'Priest', 'three')]
+	return [('Ace Pilot','Ace Pilot'),
+			('Bounty Hunter','Bounty Hunter'),
+			('Xenoseeker', 'Xenoseeker'),
+			('Outlaw','Outlaw'),
+			('Priest', 'Priest')]
 
 
 def alignment_options():
@@ -33,24 +33,46 @@ def alignment_options():
 			('b', 'b'),
 			('c', 'c')]
 
+
 classes = models.Class.query.all()
 
 def class_options():
-	return [('a', 'a', 'three'),
-			('b', 'b', 'three'),
-			('c', 'c', 'three')]
+	return [('a', 'a'),
+			('b', 'b'),
+			('c', 'c')]
+
 
 def deity_options():
 	return [('a', 'a'),
 			('b', 'b'),
 			('c', 'c')]
 
+
 def world_options():
 	return [('a', 'a'),
 			('b', 'b'),
 			('c', 'c')]
 
+
 def gender_options():
+	return [('a', 'a'),
+			('b', 'b'),
+			('c', 'c')]
+
+
+def character_options():
+	return [('a', 'a'),
+			('b', 'b'),
+			('c', 'c')]
+
+
+def spell_options():
+	return [('a', 'a'),
+			('b', 'b'),
+			('c', 'c')]
+
+
+def feat_options():
 	return [('a', 'a'),
 			('b', 'b'),
 			('c', 'c')]
@@ -98,6 +120,18 @@ class CharacterUpdateForm(MyBaseForm):
 	wisdom = wtforms.IntegerField('Wisdom')
 	charisma = wtforms.IntegerField('Charisma')
 	submit = wtforms.SubmitField('Save')
+
+
+class CharacterFeatsForm(MyBaseForm):
+	id = wtforms.StringField("")
+	character_id = wtforms.SelectField('Select Character', choices=character_options())
+	feat_id = wtforms.SelectField('Select Feat', choices=feat_options())
+
+
+class CharacterSpellsForm(MyBaseForm):
+	id = wtforms.StringField("")
+	character_id = wtforms.SelectField('Select Character', choices=character_options())
+	spell_id = wtforms.SelectField('Select Spell', choices=spell_options())
 
 
 class CharacterSkillsForm(MyBaseForm):
