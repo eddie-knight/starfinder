@@ -146,7 +146,7 @@ class Modifier(db_engine.Model, ModelBase, HasId):
 class Feat(db_engine.Model, ModelBase, HasId):
     modifier_id = db_engine.Column(db_engine.ForeignKey("modifiers.id"),
                                      nullable=True)
-    name = db_engine.(db_engine.String(64), nullable=False)
+    name = db_engine.Column(db_engine.String(64), nullable=False)
     tagline = db_engine.Column(db_engine.String(150), nullable=False)
     prereq_text = db_engine.Column(db_engine.String(100), nullable=False)
     description = db_engine.Column(db_engine.String(115), nullable=False)
