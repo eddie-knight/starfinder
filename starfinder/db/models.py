@@ -627,6 +627,35 @@ class Character(db_engine.Model, ModelBase, HasGuid):
     character_equipment = orm.relationship('CharacterEquipment', backref='character')
     character_spells = orm.relationship('CharacterSpell', backref='character')
 
+    # stamina = constitution - con_mod - race.points
+    # hit_points = race.hit_points + (class.hit_points * class.level)
+
+    # str_mod = (strength / 2) - 5
+    # dex_mod = (dexterity / 2) - 5
+    # con_mod = (constitution / 2) - 5
+    # int_mod = (intelligence / 2) - 5
+    # wis_mod = (wisdom / 2) - 5
+    # char_mod = (charisma / 2) - 5
+    # misc_mod = ?
+
+    # armor_bonus = ?
+
+    # eac = 10 + armor_bonus + dex_mod + misc_mod
+    # kac = 10 + armor_bonus + dex_mod + misc_mod
+    # ac_vs_combat = 8 + kac
+
+    # initiative = dex_mod + misc_mod
+
+    # base_save = ?
+    # fortitude_save = base_save + str_mod + misc_mod
+    # reflex_save = base_save + dex_mod + misc_mod
+    # will_save = base_save + wis_mod + misc_mod
+
+    # base_atk_bonus = ?
+    # melee_atk = base_atk_bonus + str_mod + misc_mod
+    # ranged_atk = base_atk_bonus + dex_mod + misc_mod
+    # thrown_atk = base_atk_bonus + str_mod + misc_mod
+
 
     def __str__(self):
         return self.name
