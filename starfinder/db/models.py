@@ -627,34 +627,78 @@ class Character(db_engine.Model, ModelBase, HasGuid):
     character_equipment = orm.relationship('CharacterEquipment', backref='character')
     character_spells = orm.relationship('CharacterSpell', backref='character')
 
-    # stamina = constitution - con_mod - race.points
-    # hit_points = race.hit_points + (class.hit_points * class.level)
-
-    # str_mod = (strength / 2) - 5
-    # dex_mod = (dexterity / 2) - 5
-    # con_mod = (constitution / 2) - 5
-    # int_mod = (intelligence / 2) - 5
-    # wis_mod = (wisdom / 2) - 5
-    # char_mod = (charisma / 2) - 5
-    # misc_mod = ?
-
-    # armor_bonus = ?
-
-    # eac = 10 + armor_bonus + dex_mod + misc_mod
-    # kac = 10 + armor_bonus + dex_mod + misc_mod
-    # ac_vs_combat = 8 + kac
-
-    # initiative = dex_mod + misc_mod
-
-    # base_save = ?
-    # fortitude_save = base_save + str_mod + misc_mod
-    # reflex_save = base_save + dex_mod + misc_mod
-    # will_save = base_save + wis_mod + misc_mod
-
-    # base_atk_bonus = ?
-    # melee_atk = base_atk_bonus + str_mod + misc_mod
-    # ranged_atk = base_atk_bonus + dex_mod + misc_mod
-    # thrown_atk = base_atk_bonus + str_mod + misc_mod
+    @property
+    def stamina(self):
+        # stamina = constitution - con_mod - race.points
+        return " "
+    def hit_points(self):
+        # hit_points = race.hit_points + (class.hit_points * class.level)
+        return " "
+    def str_mod(self):
+        # str_mod = (strength / 2) - 5
+        return " "
+    def dex_mod(self):
+        # dex_mod = (dexterity / 2) - 5
+        return " "
+    def con_mod(self):
+        # con_mod = (constitution / 2) - 5
+        return " "
+    def int_mod(self):
+        # int_mod = (intelligence / 2) - 5
+        return " "
+    def wis_mod(self):
+        # wis_mod = (wisdom / 2) - 5
+        return " "
+    def char_mod (self):
+        # char_mod = (charisma / 2) - 5
+        return " "
+    def misc_mod(self):
+        # misc_mod = ?
+        return " "
+    def armor_bonus(self):
+        # armor_bonus = ?
+        return " "
+    def eac(self):
+        # eac = 10 + armor_bonus + dex_mod + misc_mod
+        return " "
+    def kac(self):
+        # kac = 10 + armor_bonus + dex_mod + misc_mod
+        return " "
+    def ac_vs_combat(self):
+        # ac_vs_combat = 8 + kac
+        return " "
+    def initiative(self):
+        # initiative = dex_mod + misc_mod
+        return " "
+    def base_save(self):
+        # base_save = ?
+        return " "
+    def fortitude_save(self):
+        # fortitude_save = base_save + str_mod + misc_mod
+        return " "
+    def reflex_save(self):
+        # reflex_save = base_save + dex_mod + misc_mod
+        return " "
+    def will_save(self):
+        # will_save = base_save + wis_mod + misc_mod
+        return " "
+    def base_atk_bonus(self):
+        # base_atk_bonus = ?
+        return " "
+    def melee_atk(self):
+        # melee_atk = base_atk_bonus + str_mod + misc_mod
+        return " "
+    def ranged_atk(self):
+        # ranged_atk = base_atk_bonus + dex_mod + misc_mod
+        return " "
+    def thrown_atk(self):
+        # thrown_atk = base_atk_bonus + str_mod + misc_mod
+        return " "
+    def alignment(self):
+        # alignment = ?
+        return " "
+    def user(self):
+        return " "
 
 
     def __str__(self):
