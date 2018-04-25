@@ -9,15 +9,18 @@
 {% endblock %}
 
 {% block hidden %}
-        {{ form.id(value=character.id) }}
-        {{ form.name(value=character.name) }}
 {% endblock %}
 
 
 {% block form_fields %}
 
     <div class="form-group">
-       
+       {{ form.race_id.label }}
+        <select name="race_id">
+	        {% for field in form.race_id %}
+	        	{{ field }}
+	        {% endfor %}
+    	</select>
     </div>
 
 {% endblock %}
