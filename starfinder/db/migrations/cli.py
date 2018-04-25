@@ -2,22 +2,17 @@
 
 import os
 import sys
+from flask_alembic import Alembic
 
-from alembic import command as alembic_command
-from alembic import config as alembic_config
-from alembic import script as alembic_script
-from alembic import util as alembic_util
 import click
 import sqlalchemy_utils
 
-from starfinder import config, logging
+from starfinder import config, logging, flask_app
 from starfinder.db import models
 
 CONF = config.CONF
 LOG = logging.get_logger(__name__)
 
-HEAD_FILENAME = "head"
-ALEMBIC_INI = "alembic.ini"
 SCRIPT_LOCATION = "starfinder.db.migrations:alembic"
 MIGRATION_LOCATION = "starfinder.db.migrations:alembic_migrations"
 ENGINE_URL = CONF.get("DB_ENGINE_URL")
@@ -31,34 +26,19 @@ def migrate_cli():
                           "migrations as 'upgrade' itself will not create "
                           "the database")
 def create_database():
-    if not sqlalchemy_utils.database_exists(ENGINE_URL):
-        sqlalchemy_utils.create_database(ENGINE_URL)
-
-
-def abort_if_false(ctx, _param, value):
-    if not value:
-        ctx.abort()
+    models.db_engine.create_all()
 
 
 @migrate_cli.command(help="Drops the database if it exists")
-@click.option('--confirm', is_flag=True, callback=abort_if_false,
-              expose_value=False,
+@click.option('--confirm', is_flag=True, expose_value=False,
               prompt='Are you sure you want to drop the database?')
 def drop_database():
     models.db_engine.drop_all()
 
 
-def test_connection():
-    if not models.can_connect():
-        print("Couldn't connect to the database. Your engine URL is:")
-        print(models.engine.url)
-        sys.exit(1)
-    print("Connected Successfully.")
-
-
-def _dispatch_alembic_cmd(config, cmd, *args, **kwargs):
+def _dispatch_alembic_cmd(alembic_config, cmd, *args, **kwargs):
     try:
-        getattr(alembic_command, cmd)(config, *args, **kwargs)
+        getattr(alembic_command, cmd)(alembic_config, *args, **kwargs)
     except alembic_util.CommandError as e:
         alembic_util.err(e)
 
@@ -70,8 +50,8 @@ def _get_head_path(script):
     return head_path
 
 
-def _update_head_file(config):
-    script = alembic_script.ScriptDirectory.from_config(config)
+def _update_head_file(alembic_config):
+    script = alembic_script.ScriptDirectory.from_config(alembic_config)
     with open(_get_head_path(script), 'w+') as f:
         f.write(script.get_current_head())
 
@@ -80,10 +60,9 @@ def _update_head_file(config):
 @click.pass_context
 @click.option("-m", "--message", help="Message to store with the migration")
 def revision(ctx, message):
-    test_connection()
-    config = ctx.obj["alembic_config"]
-    _dispatch_alembic_cmd(config, "revision", message=message)
-    _update_head_file(config)
+    with flask_app.app_context():
+        alembic_config = ctx.obj["alembic_config"]
+        print(alembic_config.revision(message))
 
 
 @migrate_cli.command(help="Upgrades the database to the specified version. "
@@ -92,22 +71,12 @@ def revision(ctx, message):
 @click.pass_context
 @click.argument("migration_revision")
 def upgrade(ctx, migration_revision):
-    test_connection()
-    config = ctx.obj["alembic_config"]
-    if not sqlalchemy_utils.database_exists(ENGINE_URL):
-        alembic_util.err("Cannot continue. The database must be created with "
-                         "'create_database' first")
-    migration_revision = migration_revision.lower()
-    _dispatch_alembic_cmd(config, "upgrade", revision=migration_revision)
+        alembic_config = ctx.obj["alembic_config"]
+        migration_revision = migration_revision.lower()
+        _dispatch_alembic_cmd(alembic_config, "upgrade", revision=migration_revision)
 
 
 def main():
-    config = alembic_config.Config(
-        os.path.join(os.path.dirname(__file__), ALEMBIC_INI)
-    )
-    config.set_main_option("script_location",
-                           SCRIPT_LOCATION)
-
-    config.set_main_option("sqlalchemy.url",
-                           ENGINE_URL)
-    migrate_cli(obj={"alembic_config": config})
+    alembic_config = Alembic()
+    alembic_config.init_app(flask_app)
+    migrate_cli(obj={"alembic_config": alembic_config})

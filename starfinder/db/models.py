@@ -21,6 +21,23 @@ db_engine = SQLAlchemy(flask_app)
 Session = db_engine.session
 
 
+class MetaBase(declarative.DeclarativeMeta):
+    def __init__(cls, klsname, bases, attrs):
+        if klsname != "Base":
+            super().__init__(klsname, bases, attrs)
+            for attr_name, attr in attrs.items():
+                if isinstance(attr, sa.Column):
+                    query_single_getter_name = "get_by_{}".format(attr_name)
+                    query_all_getter_name = "get_all_by_{}".format(attr_name)
+                    if not hasattr(cls, query_single_getter_name):
+                        setattr(cls, query_single_getter_name,
+                                functools.partial(cls._get_by, attr))
+
+                    if not hasattr(cls, query_all_getter_name):
+                        setattr(cls, query_all_getter_name,
+                                functools.partial(cls._get_all_by, attr))
+
+
 class ModelBase(object):
     __table_args__ = TABLE_KWARGS
 
@@ -707,5 +724,5 @@ class CharacterSkill(db_engine.Model, ModelBase, HasGuid):
     survival = db_engine.Column(db_engine.Integer(), nullable=False, default=False)
 
 
-# For maintenance and removal of database: db_engine.drop_all()
-db_engine.create_all()
+Base = declarative.declarative_base(cls=ModelBase, bind=db_engine,
+                                    metaclass=MetaBase)
