@@ -19,15 +19,19 @@
 		{% block form_fields %}{% endblock %}
 	</form>
 	<div class="row">
-		<a href="{{ url_for(previous, char_id=character.id) }}">
-			<div class="btn btn-primary">Previous</div>
-		</a>
+		{% if previous %}
+			<a href="{{ url_for(previous, char_id=character.id) }}">
+				<div class="btn btn-primary">Previous</div>
+			</a>
+		{% endif %}
 		<div class="d-flex flex-column flex-lg-row align-items-center justify-content-between">
 			{{ form.submit }}
 		</div>
-		<a href="{{ url_for(next, char_id=character.id) }}">
-			<div class="btn btn-primary">Next</div>
-		</a>
+		{% if previous %}
+			<a href="{{ url_for(next, char_id=character.id) }}">
+				<div class="btn btn-primary">Next</div>
+			</a>
+		{% endif %}
 	</div>
 {% endblock %}
 
