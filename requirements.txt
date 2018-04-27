@@ -2,12 +2,13 @@ alembic==0.9.6
 arrow==0.11.0
 docker-compose==1.20.0rc1
 Flask==0.12.2
+Flask-Alembic==2.0.1
 Flask-Login==0.4.1
 Flask-SQLAlchemy==2.3.1
 Jinja2==2.10
 pexpect==4.2.1
 pylint==1.7.4
-PyMySQL==0.7.11
+PyMySQL==0.7.2
 pyparsing==2.2.0
 pytest==3.2.5
 pytest-cov==2.5.1

@@ -9,16 +9,12 @@ from starfinder.db import models
 CONF = config.CONF
 LOG = logging.get_logger(__name__)
 
-races = models.Race.query.all()
 
 def race_options():
-	# These Left & Right values are occasionally inverting...?
 	return [('1','Android'),
 			('2','Human'),
 			('3', 'Kasatha')]
 
-
-themes = models.Theme.query.all()
 
 def theme_options():
 	return [('Ace Pilot','Ace Pilot'),
@@ -33,8 +29,6 @@ def alignment_options():
 			('b', 'b'),
 			('c', 'c')]
 
-
-classes = models.Class.query.all()
 
 def class_options():
 	return [('a', 'a'),
